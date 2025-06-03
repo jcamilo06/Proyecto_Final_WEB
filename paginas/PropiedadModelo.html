@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestión de Propiedades Modelo</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
+    <link rel="stylesheet" href="Estilos/css/all.min.css" />
+    <link rel="stylesheet" href="Estilos/adminlte.min.css" />
+    <link rel="stylesheet" href="Estilos/dataTables.bootstrap4.min.css" />
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <div id="dvMenu"></div>
+
+        <section class="content mt-3">
+            <div class="container-fluid">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-home"></i> Gestión de Propiedades Modelo</h3>
+                    </div>
+                    <form id="frmPropiedadModelo">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="txtid_propiedad">ID Propiedad</label>
+                                    <input type="number" class="form-control" id="txtid_propiedad" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtid_proyecto">ID Proyecto</label>
+                                    <input type="number" class="form-control" id="txtid_proyecto" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="txtcosto_decoracion">Costo Decoración</label>
+                                    <input type="number" step="0.01" class="form-control" id="txtcosto_decoracion" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="txtfecha_decoracion">Fecha Decoración</label>
+                                    <input type="date" class="form-control" id="txtfecha_decoracion" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-success btn-block" onclick="EjecutarComandoPropiedadModelo('POST', 'Insertar')">
+                                        <i class="fas fa-plus-circle"></i> Insertar
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-warning btn-block" onclick="EjecutarComandoPropiedadModelo('PUT', 'Actualizar')">
+                                        <i class="fas fa-edit"></i> Actualizar
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-danger btn-block" onclick="EliminarPropiedadModeloDesdeFormulario()">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-info btn-block" onclick="ConsultarPropiedadModelo()">
+                                        <i class="fas fa-search"></i> Consultar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title"><i class="fas fa-table"></i> Lista de Propiedades Modelo</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="tblPropiedadModelo" class="table table-bordered table-hover table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID Propiedad</th>
+                                    <th>ID Proyecto</th>
+                                    <th>Costo Decoración</th>
+                                    <th>Fecha Decoración</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="Scripts/PropiedadModelo.js"></script>
+</body>
+</html>

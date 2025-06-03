@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestión de Proyectos</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
+    <link rel="stylesheet" href="Estilos/css/all.min.css" />
+    <link rel="stylesheet" href="Estilos/adminlte.min.css" />
+    <link rel="stylesheet" href="Estilos/dataTables.bootstrap4.min.css" />
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <div id="dvMenu"></div>
+
+        <section class="content mt-3">
+            <div class="container-fluid">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-building"></i> Gestión de Proyectos</h3>
+                    </div>
+                    <form id="frmProyecto">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="txtid_proyecto">ID Proyecto</label>
+                                    <input type="text" class="form-control" id="txtid_proyecto" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="txtnombre">Nombre</label>
+                                    <input type="text" class="form-control" id="txtnombre" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtid_ciudad">ID Ciudad</label>
+                                    <input type="number" class="form-control" id="txtid_ciudad" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="txtdireccion">Dirección</label>
+                                    <input type="text" class="form-control" id="txtdireccion" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="txtfecha_lanzamiento">Fecha Lanzamiento</label>
+                                    <input type="date" class="form-control" id="txtfecha_lanzamiento" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="txtfecha_entrega_estimada">Fecha Entrega Estimada</label>
+                                    <input type="date" class="form-control" id="txtfecha_entrega_estimada" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="txtdesarrollador">Desarrollador</label>
+                                    <input type="text" class="form-control" id="txtdesarrollador" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-success btn-block" onclick="EjecutarComandoProyecto('POST', 'Insertar')">
+                                        <i class="fas fa-plus-circle"></i> Insertar
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-warning btn-block" onclick="EjecutarComandoProyecto('PUT', 'Actualizar')">
+                                        <i class="fas fa-edit"></i> Actualizar
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-danger btn-block" onclick="EliminarProyectoDesdeFormulario()">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-info btn-block" onclick="ConsultarProyecto()">
+                                        <i class="fas fa-search"></i> Consultar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title"><i class="fas fa-table"></i> Lista de Proyectos</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="tblProyectos" class="table table-bordered table-hover table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>ID Ciudad</th>
+                                    <th>Dirección</th>
+                                    <th>Fecha Lanzamiento</th>
+                                    <th>Fecha Entrega Estimada</th>
+                                    <th>Desarrollador</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="Scripts/Proyecto.js"></script>
+</body>
+</html>

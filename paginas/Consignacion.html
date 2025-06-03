@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CONSIGNACIÓN</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="Estilos/css/all.min.css" rel="stylesheet" />
+    <link href="Estilos/adminlte.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    
+</head>
+<body class="hold-transition sidebar-mini">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12" id="dvMenu"></div>
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">GESTIÓN DE CONSIGNACIONES</h3>
+                        </div>
+                        <form id="frmConsignacion">
+                            <div class="card-body">
+                                <div class="card card-gray-dark">
+                                    <div class="card-header">
+                                        <h3 class="card-title">DATOS DE CONSIGNACIÓN</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtid_consignacion">ID CONSIGNACIÓN</label>
+                                                    <input type="text" class="form-control" id="txtid_consignacion" placeholder="ID (solo para actualizar/eliminar)">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtid_propiedad">ID PROPIEDAD</label>
+                                                    <input type="text" class="form-control" id="txtid_propiedad" placeholder="ID de la propiedad">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtid_propietario">ID PROPIETARIO</label>
+                                                    <input type="text" class="form-control" id="txtid_propietario" placeholder="ID del propietario">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtfecha_inicio">FECHA INICIO</label>
+                                                    <input type="date" class="form-control" id="txtfecha_inicio">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtfecha_fin">FECHA FIN</label>
+                                                    <input type="date" class="form-control" id="txtfecha_fin">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtporcentaje_comision">PORCENTAJE COMISIÓN</label>
+                                                    <input type="text" class="form-control" id="txtporcentaje_comision" placeholder="Ej: 5.00">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card card-danger">
+                                    <div class="card-header">
+                                        <h3 class="card-title">PROCESOS</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-lg btn-primary" onclick="EjecutarComando('POST', 'Insertar')">INSERTAR</button>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-lg btn-primary" onclick="EjecutarComando('PUT', 'Actualizar')">ACTUALIZAR</button>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-lg btn-primary" onclick="EjecutarComando('DELETE', 'EliminarXId')">ELIMINAR</button>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" class="btn btn-block btn-lg btn-primary" onclick="Consultar()">CONSULTAR</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table id="tblConsignaciones" class="table table-bordered table-striped" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>id_consignacion</th>
+                                                        <th>id_propiedad</th>
+                                                        <th>id_propietario</th>
+                                                        <th>fecha_inicio</th>
+                                                        <th>fecha_fin</th>
+                                                        <th>porcentaje_comision</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div id="dvMensaje" class=""></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SCRIPTS -->
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="Scripts/Comunes/Comunes.js"></script>
+    <script src="Scripts/Comunes/CRUD.js"></script>
+    <script src="Scripts/Consignacion.js"></script>
+</body>
+</html>
