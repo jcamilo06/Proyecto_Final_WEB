@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestión de Empleados</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="Estilos/css/all.min.css" rel="stylesheet" />
+    <link href="Estilos/adminlte.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.bootstrap4.min.css" rel="stylesheet" />
+</head>
+<body class="hold-transition sidebar-mini">
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12" id="dvMenu"></div>
+
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">GESTIÓN DE EMPLEADOS</h3>
+                        </div>
+                        <form id="frmIncapacidades">
+                            <div class="card-body">
+                                <div class="card card-gray-dark">
+                                    <div class="card-header">
+                                        <h3 class="card-title">DATOS DEL EMPLEADO</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtid_empleado">ID EMPLEADO</label>
+                                                    <input type="text" class="form-control" id="txtid_empleado" placeholder="ID del empleado">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtidentificacion">IDENTIFICACIÓN</label>
+                                                    <input type="text" class="form-control" id="txtidentificacion" placeholder="Documento del empleado">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtnombres">NOMBRES</label>
+                                                    <input type="text" class="form-control" id="txtnombres" placeholder="Nombres del empleado">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtapellidos">APELLIDOS</label>
+                                                    <input type="text" class="form-control" id="txtapellidos" placeholder="Apellidos del empleado">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txttelefono">TELÉFONO</label>
+                                                    <input type="text" class="form-control" id="txttelefono" placeholder="Teléfono del empleado">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtemail">EMAIL</label>
+                                                    <input type="text" class="form-control" id="txtemail" placeholder="Email del empleado">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtdireccion">DIRECCIÓN</label>
+                                                    <input type="text" class="form-control" id="txtdireccion" placeholder="Dirección del empleado">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtcargo">CARGO</label>
+                                                    <input type="text" class="form-control" id="txtcargo" placeholder="Cargo del empleado">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtfecha_ingreso">FECHA DE INGRESO</label>
+                                                    <input type="date" class="form-control" id="txtfecha_ingreso">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtsalario">SALARIO</label>
+                                                    <input type="text" class="form-control" id="txtsalario" placeholder="Salario del empleado">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtsede_id">SEDE ID</label>
+                                                    <input type="text" class="form-control" id="txtsede_id" placeholder="Sede del empleado">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtusuario">USUARIO</label>
+                                                    <input type="text" class="form-control" id="txtusuario" placeholder="Usuario del empleado">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtclave">CLAVE</label>
+                                                    <input type="password" class="form-control" id="txtclave" placeholder="Clave del empleado">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card card-danger mt-3">
+                                    <div class="card-header">
+                                        <h3 class="card-title">PROCESOS</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row text-center">
+                                            <div class="col-md-3 mb-2">
+                                                <button type="button" id="btnInsertar" class="btn btn-success btn-block" onclick="EjecutarComando('POST', 'Insertar')">
+                                                    <i class="fas fa-plus"></i> Insertar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3 mb-2">
+                                                <button type="button" id="btnActualizar" class="btn btn-warning btn-block" onclick="EjecutarComando('PUT', 'Actualizar')">
+                                                    <i class="fas fa-edit"></i> Actualizar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3 mb-2">
+                                                <button type="button" id="btnEliminar" class="btn btn-danger btn-block" onclick="EjecutarComando('DELETE', 'Eliminar')">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3 mb-2">
+                                                <button type="button" id="btnConsultar" class="btn btn-info btn-block" onclick="Consultar()">
+                                                    <i class="fas fa-search"></i> Consultar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <table id="tblEmpleados" class="table table-bordered table-striped">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Identificación</th>
+                                                <th>Nombres</th>
+                                                <th>Apellidos</th>
+                                                <th>Teléfono</th>
+                                                <th>Email</th>
+                                                <th>Dirección</th>
+                                                <th>Cargo</th>
+                                                <th>Ingreso</th>
+                                                <th>Salario</th>
+                                                <th>Sede</th>
+                                                <th>Usuario</th>
+                                                <th>Clave</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div id="dvMensaje" class="alert text-center"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="Scripts/Comunes/Comunes.js"></script>
+    <script src="Scripts/Comunes/CRUD.js"></script>
+    <script src="Scripts/Empleado.js"></script>
+</body>
+</html>
