@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestión de Visitas</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
+    <link rel="stylesheet" href="Estilos/css/all.min.css" />
+    <link rel="stylesheet" href="Estilos/adminlte.min.css" />
+    <link rel="stylesheet" href="Estilos/dataTables.bootstrap4.min.css" />
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <div id="dvMenu"></div>
+
+        <section class="content mt-3">
+            <div class="container-fluid">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-calendar-check"></i> Gestión de Visitas</h3>
+                    </div>
+                    <form id="frmVisitas">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="txtid_visita">ID Visita</label>
+                                    <input type="text" class="form-control" id="txtid_visita" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtid_propiedad">ID Propiedad</label>
+                                    <input type="text" class="form-control" id="txtid_propiedad" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtid_cliente">ID Cliente</label>
+                                    <input type="text" class="form-control" id="txtid_cliente" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtid_empleado">ID Empleado</label>
+                                    <input type="text" class="form-control" id="txtid_empleado" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtid_tipo_visita">ID Tipo Visita</label>
+                                    <input type="text" class="form-control" id="txtid_tipo_visita" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="txtfecha_hora">Fecha y Hora</label>
+                                    <input type="datetime-local" class="form-control" id="txtfecha_hora" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="txtcomentarios">Comentarios</label>
+                                    <input type="text" class="form-control" id="txtcomentarios" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-success btn-block" onclick="EjecutarComando('POST', 'Insertar')">
+                                        <i class="fas fa-plus-circle"></i> Insertar
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-warning btn-block" onclick="EjecutarComando('PUT', 'Actualizar')">
+                                        <i class="fas fa-edit"></i> Actualizar
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-danger btn-block" onclick="EliminarDesdeFormulario()">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-info btn-block" onclick="Consultar()">
+                                        <i class="fas fa-search"></i> Consultar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title"><i class="fas fa-table"></i> Lista de Visitas</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="tblVisitas" class="table table-bordered table-hover table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Propiedad</th>
+                                    <th>Cliente</th>
+                                    <th>Empleado</th>
+                                    <th>Tipo</th>
+                                    <th>Fecha y Hora</th>
+                                    <th>Comentarios</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="Scripts/Visita.js"></script>
+</body>
+</html>
