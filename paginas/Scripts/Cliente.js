@@ -55,7 +55,7 @@ async function Consultar() {
     }
 }
 
-class cliente {
+class Cliente {
     constructor(id_cliente, identificacion, nombres, apellidos, telefono, email, direccion, fecha_registro) {
         this.ID_CLIENTE = id_cliente;
         this.IDENTIFICACION = identificacion;
