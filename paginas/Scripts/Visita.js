@@ -1,4 +1,4 @@
-﻿var BaseURL = "http://inmobiliaria.runasp.net/";
+﻿var BaseURL = "http://inmobiliaria2025full.runasp.net/";
 
 jQuery(function () {
     $("#dvMenu").load("../Paginas/Menu.html");
@@ -6,7 +6,7 @@ jQuery(function () {
 });
 
 function LlenarTablaVisitas() {
-    let URL = BaseURL + "api/Visitas/ConsultarTodos";
+    let URL = BaseURL + "api/visitas/ConsultarTodos";
     $.get(URL, function (data) {
         $("#tblVisitas").DataTable({
             data: data,
@@ -49,7 +49,7 @@ async function EjecutarComando(metodo, accion) {
         $("#txtcomentarios").val()
     );
 
-    const url = BaseURL + "api/Visitas/" + accion;
+    const url = BaseURL + "api/visitas/" + accion;
 
     const opciones = {
         method: metodo,
@@ -69,7 +69,7 @@ async function EjecutarComando(metodo, accion) {
 
 async function Consultar() {
     const id = $("#txtid_visita").val();
-    const url = BaseURL + "api/Visitas/ConsultarXId?IdVisita=" + id;
+    const url = BaseURL + "api/visitas/ConsultarXId?IdVisita=" + id;
     try {
         const res = await fetch(url);
         if (res.ok) {
@@ -131,12 +131,13 @@ async function EliminarPorId(id) {
 
 class Visita {
     constructor(id_visita, id_propiedad, id_cliente, id_empleado, id_tipo_visita, fecha_hora, comentarios) {
-        this.id_visita = parseInt(id_visita);
-        this.id_propiedad = parseInt(id_propiedad);
-        this.id_cliente = parseInt(id_cliente);
-        this.id_empleado = parseInt(id_empleado);
-        this.id_tipo_visita = parseInt(id_tipo_visita);
-        this.fecha_hora = fecha_hora;
-        this.comentarios = comentarios;
+        this.ID_VISITA = parseInt(id_visita);
+        this.ID_PROPIEDAD = parseInt(id_propiedad);
+        this.ID_CLIENTE = parseInt(id_cliente);
+        this.ID_EMPLEADO = parseInt(id_empleado);
+        this.ID_TIPO_VISITA = parseInt(id_tipo_visita);
+        this.FECHA_HORA = fecha_hora;
+        this.COMENTARIOS = comentarios;
     }
 }
+
