@@ -1,59 +1,91 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inicio App dllo WEB</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <!-- Font Awesome -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inmobiliaria - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="Estilos/css/all.min.css" rel="stylesheet" />
-    <!-- Theme style -->
-    <link href="Estilos/adminlte.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-box {
+            max-width: 400px;
+            margin: 80px auto;
+        }
+
+        .card {
+            border-radius: 1rem;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-logo h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+            text-shadow: 1px 1px #fff;
+        }
+
+        .login-card-body {
+            padding: 2rem;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            font-weight: 600;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .login-box-msg {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .card-footer {
+            text-align: center;
+            background: #f8f9fa;
+            border-top: none;
+        }
+    </style>
 </head>
-<body class="hold-transition login-page">
+<body>
     <div class="login-box">
-        <div class="login-logo">
-            <h1>APLICACIÓN</h1>
+        <div class="login-logo text-center mb-3">
+            <h1>Inmobiliaria</h1>
         </div>
-        <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Ingresa usuario clave para iniciar</p>
-
+                <p class="login-box-msg">Ingresa tu usuario y clave para continuar</p>
                 <form>
-                    <div class="input-group mb-3">
+                    <div class="mb-3 input-group">
                         <input type="text" id="txtUsuario" class="form-control" placeholder="Usuario">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="mb-3 input-group">
                         <input type="password" id="txtClave" class="form-control" placeholder="Clave">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-primary btn-block" onclick="Ingresar()">INGRESAR</button>
-                        </div>
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-primary" onclick="Ingresar()">INGRESAR</button>
                     </div>
                 </form>
             </div>
             <div class="card-footer">
-                <div id="dvMensaje" class=""></div>
+                <div id="dvMensaje"></div>
             </div>
-            <!-- /.login-card-body -->
         </div>
     </div>
-    <!-- /.login-box -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script
-    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="Scripts/Comunes/CRUD.js"></script>
     <script src="Scripts/Login.js"></script>
 </body>
