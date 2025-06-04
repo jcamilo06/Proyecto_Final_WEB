@@ -8,34 +8,52 @@ jQuery(function () {
 function LlenarTablaVisitas() {
     let URL = BaseURL + "api/visitas/ConsultarTodos";
     $.get(URL, function (data) {
-        $("#tblVisitas").DataTable({
+        if (!Array.isArray(data)) {
+            alert("No se pudieron cargar las visitas.");
+            return;
+        }
+
+        const tabla = $("#tblVisitas");
+        tabla.DataTable({
             data: data,
             destroy: true,
             columns: [
-                { data: "id_visita" },
-                { data: "id_propiedad" },
-                { data: "id_cliente" },
-                { data: "id_empleado" },
-                { data: "id_tipo_visita" },
+                { data: "ID_VISITA" },
                 {
-                    data: "fecha_hora",
+                    data: null,
+                    render: v => v.PROPIEDAD?.TITULO || "-"
+                },
+                {
+                    data: null,
+                    render: v => v.CLIENTE?.NOMBRES || "-"
+                },
+                {
+                    data: null,
+                    render: v => v.EMPLEADO?.NOMBRES || "-"
+                },
+                {
+                    data: null,
+                    render: v => v.TIPO_VISITA?.DESCRIPCION || "-"
+                },
+                {
+                    data: "FECHA_HORA",
                     render: function (data) {
-                        let dt = new Date(data);
-                        return dt.toLocaleString();
+                        const dt = new Date(data);
+                        return dt.toLocaleString("es-CO");
                     }
                 },
-                { data: "comentarios" },
+                { data: "COMENTARIOS" },
                 {
-                    data: "id_visita",
+                    data: "ID_VISITA",
                     render: function (data) {
                         return `<button class="btn btn-sm btn-danger" onclick="EliminarPorId(${data})">
-                            <i class="fas fa-trash-alt"></i></button>`;
+                                    <i class="fas fa-trash-alt"></i></button>`;
                     },
                     orderable: false
                 }
             ]
         });
-    });
+    }).fail(() => alert("Error al cargar las visitas."));
 }
 
 async function EjecutarComando(metodo, accion) {
@@ -51,14 +69,12 @@ async function EjecutarComando(metodo, accion) {
 
     const url = BaseURL + "api/visitas/" + accion;
 
-    const opciones = {
-        method: metodo,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(visita)
-    };
-
     try {
-        const res = await fetch(url, opciones);
+        const res = await fetch(url, {
+            method: metodo,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(visita)
+        });
         const mensaje = await res.text();
         alert(mensaje);
         LlenarTablaVisitas();
@@ -69,40 +85,48 @@ async function EjecutarComando(metodo, accion) {
 
 async function Consultar() {
     const id = $("#txtid_visita").val();
-    const url = BaseURL + "api/visitas/ConsultarXId?IdVisita=" + id;
+    const url = BaseURL + "api/visitas/Consultar?id=" + id;
+
     try {
         const res = await fetch(url);
-        if (res.ok) {
-            const visita = await res.json();
-            $("#txtid_propiedad").val(visita.id_propiedad);
-            $("#txtid_cliente").val(visita.id_cliente);
-            $("#txtid_empleado").val(visita.id_empleado);
-            $("#txtid_tipo_visita").val(visita.id_tipo_visita);
-            $("#txtfecha_hora").val(
-                visita.fecha_hora.split("T")[0] + "T" + visita.fecha_hora.split("T")[1].substring(0, 5)
-            );
-            $("#txtcomentarios").val(visita.comentarios);
-        } else {
+        if (!res.ok) {
             alert("No se encontró la visita");
+            return;
+        }
+
+        const visita = await res.json();
+
+        $("#txtid_visita").val(visita.ID_VISITA);
+        $("#txtid_propiedad").val(visita.PROPIEDAD?.ID_PROPIEDAD || "");
+        $("#txtid_cliente").val(visita.CLIENTE?.ID_CLIENTE || "");
+        $("#txtid_empleado").val(visita.EMPLEADO?.ID_EMPLEADO || "");
+        $("#txtid_tipo_visita").val(visita.TIPO_VISITA?.ID_TIPO_VISITA || "");
+        $("#txtcomentarios").val(visita.COMENTARIOS || "");
+
+        if (visita.FECHA_HORA) {
+            const fecha = visita.FECHA_HORA.split("T");
+            $("#txtfecha_hora").val(`${fecha[0]}T${fecha[1].substring(0, 5)}`);
+        } else {
+            $("#txtfecha_hora").val("");
         }
     } catch (error) {
         alert("Error al consultar la visita: " + error);
     }
 }
 
+
 async function EliminarDesdeFormulario() {
     const id = $("#txtid_visita").val();
-    if (!id) {
-        alert("Por favor ingrese el ID de la visita a eliminar.");
-        return;
-    }
+    if (!id || !confirm("¿Estás seguro de eliminar esta visita?")) return;
 
-    if (!confirm("¿Estás seguro de eliminar esta visita?")) return;
-
-    const url = BaseURL + "api/Visitas/EliminarXId?IdVisita=" + id;
+    const url = BaseURL + "api/visitas/Eliminar"; // 🔁 CORREGIDA
 
     try {
-        const res = await fetch(url, { method: "DELETE" });
+        const res = await fetch(url, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ID_VISITA: parseInt(id) })
+        });
         const mensaje = await res.text();
         alert(mensaje);
         LlenarTablaVisitas();
@@ -112,14 +136,16 @@ async function EliminarDesdeFormulario() {
 }
 
 async function EliminarPorId(id) {
-    if (!confirm("¿Estás seguro de que deseas eliminar esta visita?")) {
-        return;
-    }
+    if (!confirm("¿Estás seguro de que deseas eliminar esta visita?")) return;
 
-    const url = BaseURL + "api/Visitas/EliminarXId?IdVisita=" + id;
+    const url = BaseURL + "api/visitas/Eliminar"; // 🔁 CORREGIDA
 
     try {
-        const res = await fetch(url, { method: "DELETE" });
+        const res = await fetch(url, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ID_VISITA: parseInt(id) })
+        });
         const mensaje = await res.text();
         alert(mensaje);
         LlenarTablaVisitas();
@@ -127,7 +153,6 @@ async function EliminarPorId(id) {
         alert("Error al eliminar la visita: " + error);
     }
 }
-
 
 class Visita {
     constructor(id_visita, id_propiedad, id_cliente, id_empleado, id_tipo_visita, fecha_hora, comentarios) {
@@ -140,4 +165,3 @@ class Visita {
         this.COMENTARIOS = comentarios;
     }
 }
-
