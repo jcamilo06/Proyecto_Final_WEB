@@ -175,6 +175,7 @@
     <Content Include="paginas\PropiedadModelo.html" />
     <Content Include="paginas\Propietario.html" />
     <Content Include="paginas\Proyecto.html" />
+    <Content Include="paginas\Scripts\Cliente.js" />
     <Content Include="paginas\Scripts\Comunes\Comunes.js" />
     <Content Include="paginas\Scripts\Comunes\CRUD.js" />
     <Content Include="paginas\Scripts\Consignacion.js" />
