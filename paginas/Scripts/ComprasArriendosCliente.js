@@ -2,76 +2,94 @@ var BaseURL = "http://inmobiliaria2025full.runasp.net/";
 
 jQuery(function () {
     $("#dvMenu").load("../Paginas/Menu.html");
+    LlenarTablaComprasYArriendos();
 });
 
-async function Consultar() {
-    let idCliente = $("#txtIdCliente").val().trim();
+function obtenerCookie(nombre) {
+    const valor = document.cookie;
+    const partes = valor.split(nombre + "=");
+    if (partes.length === 2) return partes.pop().split(";").shift();
+    return null;
+}
 
-    const dvMensaje = $("#dvMensaje");
-    const ventasBody = $("#tblVentas tbody");
-    const arriendosBody = $("#tblArriendos tbody");
+function obtenerIdCliente() {
+    return obtenerCookie("IdCliente");
+}
 
-    // Limpiar mensajes y tablas
-    dvMensaje.html("");
-    ventasBody.html("");
-    arriendosBody.html("");
-
-    if (!idCliente || isNaN(idCliente)) {
-        dvMensaje.html(`<div class='alert alert-warning'>Ingrese un ID válido</div>`);
+function LlenarTablaComprasYArriendos() {
+    const idCliente = obtenerIdCliente();
+    if (!idCliente || idCliente === "0" || idCliente === "undefined") {
+        $("#dvMensaje").html("<div class='alert alert-danger'>No se pudo obtener el ID del cliente.</div>");
         return;
     }
 
+    $("#dvMensaje").html("");
+    $("#tblVentas tbody").html("");
+    $("#tblArriendos tbody").html("");
+
+    ConsultarVentas(idCliente);
+    ConsultarArriendos(idCliente);
+}
+
+async function ConsultarVentas(idCliente) {
+    const url = BaseURL + "api/ventas/ConsultarTodos";
     try {
-        await ConsultarVentas(idCliente, ventasBody);
-        await ConsultarArriendos(idCliente, arriendosBody);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Error al consultar ventas");
+        const ventas = await response.json();
+
+        ventas.forEach(v => {
+            if (v.CLIENTE?.ID_CLIENTE == idCliente) {
+                const fila = `
+                    <tr>
+                        <td>${v.ID_VENTA}</td>
+                        <td>${v.PROPIEDAD?.TITULO || "-"}</td>
+                        <td>${formatearFecha(v.FECHA_VENTA)}</td>
+                        <td>$${parseFloat(v.PRECIO_FINAL).toLocaleString()}</td>
+                        <td>${v.EMPLEADO?.NOMBRES || "-"}</td>
+                        
+                    </tr>`;
+                $("#tblVentas tbody").append(fila);
+            }
+        });
     } catch (error) {
-        dvMensaje.html(`<div class='alert alert-danger'>${error.message}</div>`);
+        $("#dvMensaje").html(`<div class='alert alert-danger'>${error.message}</div>`);
     }
 }
 
-async function ConsultarVentas(idCliente, contenedor) {
-    let URL = BaseURL + "api/ventas/ConsultarTodos";
-    const respuesta = await fetch(URL);
-    if (!respuesta.ok) throw new Error("Error al consultar ventas");
+async function ConsultarArriendos(idCliente) {
+    const url = BaseURL + "api/arriendos/ConsultarTodos";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Error al consultar arriendos");
+        const arriendos = await response.json();
 
-    const ventas = (await respuesta.json()).filter(v => v.ID_CLIENTE == idCliente);
-
-    if (ventas.length > 0) {
-        contenedor.html(ventas.map(v => `
-            <tr>
-                <td>${v.ID_VENTA}</td>
-                <td>${v.ID_INMUEBLE}</td>
-                <td>${v.ID_CLIENTE}</td>
-                <td>${v.ID_EMPLEADO}</td>
-                <td>${v.FECHA_VENTA?.split('T')[0]}</td>
-                <td>$${v.PRECIO_FINAL?.toLocaleString()}</td>
-            </tr>
-        `).join(""));
-    } else {
-        contenedor.html(`<tr><td colspan="6">No hay ventas para este cliente.</td></tr>`);
+        arriendos.forEach(a => {
+            if (a.ID_INQUILINO == idCliente) {
+                const fila = `
+                    <tr>
+                        <td>${a.ID_ARRIENDO}</td>
+                        <td>${a.PROPIEDAD?.TITULO || "-"}</td>
+                        <td>${formatearFecha(a.FECHA_INICIO)}</td>
+                        <td>${formatearFecha(a.FECHA_FIN)}</td>
+                        <td>$${parseFloat(a.CANON_MENSUAL).toLocaleString()}</td>
+                        <td>$${parseFloat(a.DEPOSITO).toLocaleString()}</td>
+                        <td>${a.EMPLEADO?.NOMBRES || "-"}</td>                
+                    </tr>`;
+                $("#tblArriendos tbody").append(fila);
+            }
+        });
+    } catch (error) {
+        $("#dvMensaje").html(`<div class='alert alert-danger'>${error.message}</div>`);
     }
 }
 
-async function ConsultarArriendos(idCliente, contenedor) {
-    let URL = BaseURL + "api/arriendos/ConsultarTodos";
-    const respuesta = await fetch(URL);
-    if (!respuesta.ok) throw new Error("Error al consultar arriendos");
-
-    const arriendos = (await respuesta.json()).filter(a => a.ID_INQUILINO == idCliente);
-
-    if (arriendos.length > 0) {
-        contenedor.html(arriendos.map(a => `
-            <tr>
-                <td>${a.ID_ARRIENDO}</td>
-                <td>${a.ID_INMUEBLE}</td>
-                <td>${a.ID_INQUILINO}</td>
-                <td>${a.ID_EMPLEADO}</td>
-                <td>${a.FECHA_INICIO?.split('T')[0]}</td>
-                <td>${a.FECHA_FIN?.split('T')[0]}</td>
-                <td>$${a.PRECIO_FINAL?.toLocaleString()}</td>
-            </tr>
-        `).join(""));
-    } else {
-        contenedor.html(`<tr><td colspan="7">No hay arriendos para este cliente.</td></tr>`);
-    }
+function formatearFecha(fecha) {
+    if (!fecha) return "-";
+    const dt = new Date(fecha);
+    return dt.toLocaleDateString("es-CO", {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
 }

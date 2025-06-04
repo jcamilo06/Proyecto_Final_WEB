@@ -3,56 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis Compras y Arriendos</title>
-    <link rel="stylesheet" href="../Estilos/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="Estilos/css/all.min.css" rel="stylesheet" />
+    <link href="Estilos/adminlte.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.bootstrap4.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="dvMenu"></div>
-
     <div class="container mt-4">
-        <h2>Mis Compras y Arriendos</h2>
+        <h1 class="mb-4">Compras y Arriendos</h1>
 
-        <div class="form-group">
-            <label for="txtIdCliente">ID Cliente:</label>
-            <input type="number" id="txtIdCliente" class="form-control" placeholder="Ingrese ID del cliente">
-        </div>
+        <button class="btn btn-primary mb-3" onclick="Consultar()">Consultar</button>
+        <div id="dvMensaje"></div>
 
-        <button onclick="Consultar()" class="btn btn-primary mt-2">Consultar</button>
-
-        <div id="dvMensaje" class="mt-3"></div>
-
-        <h3 class="mt-4">Ventas</h3>
-        <table id="tblVentas" class="table table-striped">
+        <h3>Ventas</h3>
+        <table class="table table-bordered" id="tblVentas">
             <thead>
                 <tr>
-                    <th>ID Venta</th>
-                    <th>ID Inmueble</th>
-                    <th>ID Cliente</th>
-                    <th>ID Empleado</th>
-                    <th>Fecha Venta</th>
+                    <th>ID</th>
+                    <th>Propiedad</th>
+                    <th>Fecha</th>
                     <th>Precio Final</th>
+                    <th>Empleado</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
 
-        <h3 class="mt-4">Arriendos</h3>
-        <table id="tblArriendos" class="table table-striped">
+        <h3>Arriendos</h3>
+        <table class="table table-bordered" id="tblArriendos">
             <thead>
                 <tr>
-                    <th>ID Arriendo</th>
-                    <th>ID Inmueble</th>
-                    <th>ID Inquilino</th>
-                    <th>ID Empleado</th>
+                    <th>ID</th>
+                    <th>Propiedad</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
-                    <th>Precio Final</th>
+                    <th>Canon</th>
+                    <th>Deposito</th>
+                    <th>Empleado</th>
+
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
     </div>
 
-    <script src="../Scripts/jquery-3.7.1.min.js"></script>
-    <script src="../Scripts/ComprasArriendosClientes.js"></script>
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="Scripts/Comunes/Comunes.js"></script>
+    <script src="Scripts/Comunes/CRUD.js"></script>
+    <script src="Scripts/ComprasArriendosCliente.js"></script>
 </body>
 </html>

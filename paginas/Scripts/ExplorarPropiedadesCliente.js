@@ -6,7 +6,7 @@ jQuery(function () {
 });
 
 function LlenarTablaPropiedades() {
-    let URL = BaseURL + "api/propiedades/ConsultarTodas";
+    let URL = BaseURL + "api/propiedades/ConsultarTodos";
     LlenarTablaXServiciosAuth(URL, "#tblPropiedades");
 }
 
