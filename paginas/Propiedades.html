@@ -1,13 +1,44 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Gestión de Propiedades</title>
+
+    <!-- Google Fonts & AdminLTE -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link href="Estilos/css/all.min.css" rel="stylesheet" />
     <link href="Estilos/adminlte.min.css" rel="stylesheet" />
     <link href="Estilos/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="Estilos/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(to bottom right, #e8f0fe, #ffffff);
+        }
+
+        .card-header {
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            color: white;
+        }
+
+        .card-danger .card-header {
+            background: linear-gradient(to right, #dc3545, #f56565);
+        }
+
+        .card-secondary .card-header {
+            background: linear-gradient(to right, #6c757d, #adb5bd);
+        }
+
+        .table thead {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .btn i {
+            margin-right: 6px;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini">
     <section class="content mt-3">
@@ -46,8 +77,7 @@
                             <div class="form-group col-md-3"><label>PRECIO ARRIENDO</label><input type="number" class="form-control" id="txtprecio_arriendo"></div>
                         </div>
 
-                        <hr>
-                        <div class="card card-secondary">
+                        <div class="card card-secondary mt-3">
                             <div class="card-header"><h3 class="card-title">IMÁGENES DE LA PROPIEDAD</h3></div>
                             <div class="card-body">
                                 <div class="row">
@@ -55,20 +85,48 @@
                                         <input type="file" id="inputImagenes" class="form-control" multiple>
                                     </div>
                                     <div class="col-md-4">
-                                        <button type="button" class="btn btn-primary btn-block" onclick="SubirImagenes()">Subir Imágenes</button>
+                                        <button type="button" class="btn btn-primary btn-block" onclick="SubirImagenes()">
+                                            <i class="fas fa-upload"></i> Subir Imágenes
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="row mt-3" id="galeriaImagenes"></div>
+                                <div class="row mt-4" id="galeriaImagenes"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-danger mt-3">
+                        <div class="card-header">
+                            <h3 class="card-title">PROCESOS</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-3 mb-2">
+                                    <button type="button" class="btn btn-success btn-lg btn-block" onclick="EjecutarComandoPropiedad('POST', 'Insertar')">
+                                        <i class="fas fa-plus-circle"></i> Insertar
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button type="button" class="btn btn-warning btn-lg btn-block" onclick="EjecutarComandoPropiedad('PUT', 'Actualizar')">
+                                        <i class="fas fa-edit"></i> Actualizar
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button type="button" class="btn btn-danger btn-lg btn-block" onclick="EjecutarComandoPropiedad('DELETE', 'Eliminar')">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button type="button" class="btn btn-info btn-lg btn-block" onclick="ConsultarPropiedad()">
+                                        <i class="fas fa-search"></i> Consultar
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-footer">
-                        <button type="button" class="btn btn-success" onclick="EjecutarComandoPropiedad('POST', 'Insertar')">Insertar</button>
-                        <button type="button" class="btn btn-warning" onclick="EjecutarComandoPropiedad('PUT', 'Actualizar')">Actualizar</button>
-                        <button type="button" class="btn btn-danger" onclick="EjecutarComandoPropiedad('DELETE', 'Eliminar')">Eliminar</button>
-                        <button type="button" class="btn btn-info" onclick="ConsultarPropiedad()">Consultar</button>
-                        <div id="dvMensaje" class="mt-3 alert alert-secondary text-center"></div>
+                        <div id="dvMensaje" class="alert alert-secondary text-center"></div>
                     </div>
                 </form>
             </div>
@@ -88,7 +146,6 @@
                             <th>Ciudad</th>
                             <th>Estado</th>
                             <th>Tipo</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                 </table>
