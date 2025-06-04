@@ -123,6 +123,7 @@
     <Content Include="Global.asax" />
     <Content Include="paginas\Ciudad.html" />
     <Content Include="paginas\Cliente.html" />
+    <Content Include="paginas\ComprasArriendosCliente.html" />
     <Content Include="paginas\Consignacion.html" />
     <Content Include="paginas\dashboardAdmin.html" />
     <Content Include="paginas\dashboardPublic.html" />
@@ -172,15 +173,18 @@
     <Content Include="paginas\Pagina2.html" />
     <Content Include="paginas\PaginaBase.html" />
     <Content Include="paginas\Propiedades.html" />
+    <Content Include="paginas\ExplorarPropiedadesCliente.html" />
     <Content Include="paginas\PropiedadModelo.html" />
     <Content Include="paginas\Propietario.html" />
     <Content Include="paginas\Proyecto.html" />
+    <Content Include="paginas\Scripts\ComprasArriendosCliente.js" />
     <Content Include="paginas\Scripts\Comunes\Comunes.js" />
     <Content Include="paginas\Scripts\Comunes\CRUD.js" />
     <Content Include="paginas\Scripts\Consignacion.js" />
     <Content Include="paginas\Scripts\DetalleOrden.js" />
     <Content Include="paginas\Scripts\Empleado.js" />
     <Content Include="paginas\Scripts\EstadoPropiedad.js" />
+    <Content Include="paginas\Scripts\ExplorarPropiedadesCliente.js" />
     <Content Include="paginas\Scripts\ImagenPropiedad.js" />
     <Content Include="paginas\Scripts\Login.js" />
     <Content Include="paginas\Scripts\Menu.js" />
