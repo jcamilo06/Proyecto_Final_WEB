@@ -171,6 +171,7 @@
     <Content Include="paginas\Pagina1.html" />
     <Content Include="paginas\Pagina2.html" />
     <Content Include="paginas\PaginaBase.html" />
+    <Content Include="paginas\Propiedades.html" />
     <Content Include="paginas\PropiedadModelo.html" />
     <Content Include="paginas\Propietario.html" />
     <Content Include="paginas\Proyecto.html" />
@@ -186,6 +187,7 @@
     <Content Include="paginas\Scripts\MenuLateral.js" />
     <Content Include="paginas\Scripts\Pagina1.js" />
     <Content Include="paginas\Scripts\Pagina2.js" />
+    <Content Include="paginas\Scripts\Propiedades.js" />
     <Content Include="paginas\Scripts\PropiedadModelo.js" />
     <Content Include="paginas\Scripts\Propietario.js" />
     <Content Include="paginas\Scripts\Proyecto.js" />
