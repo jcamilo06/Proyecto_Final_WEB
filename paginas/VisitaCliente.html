@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestionar Visitas</title>
+    <title>Tus Visitas</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link href="Estilos/css/all.min.css" rel="stylesheet" />
     <link href="Estilos/adminlte.min.css" rel="stylesheet" />
@@ -19,7 +19,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">GESTIÓN DE VISITAS</h3>
+                            <h3 class="card-title">TUS VISITAS</h3>
                         </div>
                         <form id="frmIncapacidades">
                             <div class="card-body">
@@ -39,28 +39,28 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtid_propiedad">PROPIEDAD</label>
-                                                    <input type="text" class="form-control" id="txtid_propiedad" placeholder="Id de propiedad">
+                                                    <label for="txtpropiedad">PROPIEDAD</label>
+                                                    <input type="text" class="form-control" id="txtpropiedad" placeholder="Propiedad">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtid_empleado"> EMPLEADO</label>
-                                                    <input type="text" class="form-control" id="txtid_empleado" placeholder="Id de empleado">
+                                                    <label for="txtempleado"> EMPLEADO</label>
+                                                    <input type="text" class="form-control" id="txtempleado" placeholder="Empleado">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtid_tipo_visita">TIPO VISITA</label>
-                                                    <input type="text" class="form-control" id="txtid_tipo_visita" placeholder="Id del tipo visita">
+                                                    <label for="txttipovisita">TIPO VISITA</label>
+                                                    <input type="text" class="form-control" id="txttipovisita" placeholder="Tipo Visita">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtid_cliente">CLIENTE</label>
-                                                    <input type="text" class="form-control" id="txtid_cliente" placeholder="Id de cliente">
+                                                    <label for="txtcliente">CLIENTE</label>
+                                                    <input type="text" class="form-control" id="txtcliente" placeholder="Cliente">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -72,7 +72,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="txtfecha_hora">FECHA Y HORA</label>
-                                                    <input type="datetime-local" class="form-control" id="txtfecha_hora">
+                                                    <input type="date" class="form-control" id="txtfecha_hora">
                                                 </div>
                                             </div>
                                         </div>
@@ -120,12 +120,9 @@
                                                 <th>Cliente</th>
                                                 <th>Comentarios</th>
                                                 <th>Fecha y hora</th>
-                                                <th>Acción</th>
                                             </tr>
                                         </thead>
-                                        <tbody></tbody>
                                     </table>
-
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -144,6 +141,6 @@
     <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
     <script src="Scripts/Comunes/Comunes.js"></script>
     <script src="Scripts/Comunes/CRUD.js"></script>
-    <script src="Scripts/Visita.js"></script>
+    <script src="Scripts/Cliente.js"></script>
 </body>
 </html>

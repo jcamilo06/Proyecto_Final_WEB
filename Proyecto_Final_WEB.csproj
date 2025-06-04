@@ -178,6 +178,7 @@
     <Content Include="paginas\Propietario.html" />
     <Content Include="paginas\Proyecto.html" />
     <Content Include="paginas\Scripts\ComprasArriendosCliente.js" />
+    <Content Include="paginas\Scripts\Cliente.js" />
     <Content Include="paginas\Scripts\Comunes\Comunes.js" />
     <Content Include="paginas\Scripts\Comunes\CRUD.js" />
     <Content Include="paginas\Scripts\Consignacion.js" />
@@ -197,9 +198,11 @@
     <Content Include="paginas\Scripts\Proyecto.js" />
     <Content Include="paginas\Scripts\sedes.js" />
     <Content Include="paginas\Scripts\TipoVisita.js" />
+    <Content Include="paginas\Scripts\ventas.js" />
     <Content Include="paginas\Scripts\Visita.js" />
     <Content Include="paginas\sedes.html" />
     <Content Include="paginas\TipoVisita.html" />
+    <Content Include="paginas\ventas.html" />
     <Content Include="paginas\Visita.html" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
@@ -231,6 +234,7 @@
     <Content Include="paginas\Estilos\webfonts\fa-solid-900.ttf" />
     <Content Include="paginas\Estilos\webfonts\fa-solid-900.woff" />
     <Content Include="paginas\Estilos\webfonts\fa-solid-900.woff2" />
+    <Content Include="paginas\VisitaCliente.html" />
     <Content Include="scripts\adminlte.js" />
     <Content Include="scripts\adminlte.min.js" />
     <Content Include="scripts\bootstrap.bundle.js" />
@@ -344,6 +348,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Archivos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
