@@ -228,6 +228,7 @@
     <Content Include="paginas\Estilos\webfonts\fa-solid-900.ttf" />
     <Content Include="paginas\Estilos\webfonts\fa-solid-900.woff" />
     <Content Include="paginas\Estilos\webfonts\fa-solid-900.woff2" />
+    <Content Include="paginas\VisitaCliente.html" />
     <Content Include="scripts\adminlte.js" />
     <Content Include="scripts\adminlte.min.js" />
     <Content Include="scripts\bootstrap.bundle.js" />
