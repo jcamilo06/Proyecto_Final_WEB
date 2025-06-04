@@ -192,10 +192,10 @@
     <Content Include="paginas\Scripts\PropiedadModelo.js" />
     <Content Include="paginas\Scripts\Propietario.js" />
     <Content Include="paginas\Scripts\Proyecto.js" />
-    <Content Include="paginas\Scripts\sedes.js" />
+    <Content Include="paginas\Scripts\Sedes.js" />
     <Content Include="paginas\Scripts\TipoVisita.js" />
     <Content Include="paginas\Scripts\Visita.js" />
-    <Content Include="paginas\sedes.html" />
+    <Content Include="paginas\Sedes.html" />
     <Content Include="paginas\TipoVisita.html" />
     <Content Include="paginas\Visita.html" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
