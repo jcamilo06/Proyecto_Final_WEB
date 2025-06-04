@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Gestión de Propiedades</title>
 
-    <!-- Google Fonts & AdminLTE -->
+    <!-- Estilos y Fuentes -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
     <link href="Estilos/adminlte.min.css" rel="stylesheet" />
     <link href="Estilos/dataTables.bootstrap4.min.css" rel="stylesheet" />
@@ -14,11 +14,11 @@
     <style>
         body {
             font-family: 'Source Sans Pro', sans-serif;
-            background: linear-gradient(to bottom right, #e8f0fe, #ffffff);
+            background: linear-gradient(to bottom right, #eef3f8, #ffffff);
         }
 
         .card-header {
-            background: linear-gradient(to right, #007bff, #00c6ff);
+            background: linear-gradient(to right, #0056b3, #00aaff);
             color: white;
         }
 
@@ -38,6 +38,22 @@
         .btn i {
             margin-right: 6px;
         }
+
+        .form-group label {
+            font-weight: 600;
+        }
+
+        #frmPropiedades .card-body {
+            padding-bottom: 0;
+        }
+
+        #galeriaImagenes img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 5px 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -47,6 +63,7 @@
                 <div class="col-md-12" id="dvMenu"></div>
             </div>
 
+            <!-- Formulario de Propiedad -->
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">GESTIÓN DE PROPIEDADES</h3>
@@ -54,50 +71,42 @@
                 <form id="frmPropiedades">
                     <div class="card-body">
                         <div class="row">
-                            <div class="form-group col-md-3"><label>ID PROPIEDAD</label><input type="text" class="form-control" id="txtid_propiedad"></div>
-                            <div class="form-group col-md-3"><label>TÍTULO</label><input type="text" class="form-control" id="txttitulo"></div>
-                            <div class="form-group col-md-3"><label>DESCRIPCIÓN</label><input type="text" class="form-control" id="txtdescripcion"></div>
-                            <div class="form-group col-md-3"><label>ÁREA (m²)</label><input type="number" class="form-control" id="txtarea"></div>
+                            <div class="form-group col-md-3"><label>ID</label><input type="text" class="form-control" id="txtid_propiedad"></div>
+                            <div class="form-group col-md-3"><label>Título</label><input type="text" class="form-control" id="txttitulo"></div>
+                            <div class="form-group col-md-3"><label>Descripción</label><input type="text" class="form-control" id="txtdescripcion"></div>
+                            <div class="form-group col-md-3"><label>Área (m²)</label><input type="number" class="form-control" id="txtarea"></div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-2"><label>HABITACIONES</label><input type="number" class="form-control" id="txthabitaciones"></div>
-                            <div class="form-group col-md-2"><label>BAÑOS</label><input type="number" class="form-control" id="txtbanos"></div>
-                            <div class="form-group col-md-2"><label>PARQUEADEROS</label><input type="number" class="form-control" id="txtparqueaderos"></div>
-                            <div class="form-group col-md-2"><label>AÑO CONST.</label><input type="number" class="form-control" id="txtanio"></div>
-                            <div class="form-group col-md-4"><label>DIRECCIÓN</label><input type="text" class="form-control" id="txtdireccion"></div>
+                            <div class="form-group col-md-2"><label>Habitaciones</label><input type="number" class="form-control" id="txthabitaciones"></div>
+                            <div class="form-group col-md-2"><label>Baños</label><input type="number" class="form-control" id="txtbanos"></div>
+                            <div class="form-group col-md-2"><label>Parqueaderos</label><input type="number" class="form-control" id="txtparqueaderos"></div>
+                            <div class="form-group col-md-2"><label>Año</label><input type="number" class="form-control" id="txtanio"></div>
+                            <div class="form-group col-md-4"><label>Dirección</label><input type="text" class="form-control" id="txtdireccion"></div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-3"><label>CIUDAD (ID)</label><input type="number" class="form-control" id="txtciudad"></div>
-                            <div class="form-group col-md-3"><label>ESTADO PROPIEDAD (ID)</label><input type="number" class="form-control" id="txtestado"></div>
-                            <div class="form-group col-md-3"><label>TIPO PROPIEDAD (ID)</label><input type="number" class="form-control" id="txttipo"></div>
-                            <div class="form-group col-md-3"><label>FECHA REGISTRO</label><input type="date" class="form-control" id="txtfecha"></div>
+                            <div class="form-group col-md-3"><label>Ciudad</label><input type="number" class="form-control" id="txtciudad"></div>
+                            <div class="form-group col-md-3"><label>Estado</label><input type="number" class="form-control" id="txtestado"></div>
+                            <div class="form-group col-md-3"><label>Tipo</label><input type="number" class="form-control" id="txttipo"></div>
+                            <div class="form-group col-md-3"><label>Fecha Registro</label><input type="date" class="form-control" id="txtfecha"></div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-3"><label>PRECIO VENTA</label><input type="number" class="form-control" id="txtprecio_venta"></div>
-                            <div class="form-group col-md-3"><label>PRECIO ARRIENDO</label><input type="number" class="form-control" id="txtprecio_arriendo"></div>
+                            <div class="form-group col-md-3"><label>Precio Venta</label><input type="number" class="form-control" id="txtprecio_venta"></div>
+                            <div class="form-group col-md-3"><label>Precio Arriendo</label><input type="number" class="form-control" id="txtprecio_arriendo"></div>
                         </div>
 
-                        <div class="card card-secondary mt-3">
-                            <div class="card-header"><h3 class="card-title">IMÁGENES DE LA PROPIEDAD</h3></div>
+                        <!-- Galeria -->
+                        <div class="card card-secondary mt-4">
+                            <div class="card-header"><h3 class="card-title">Imágenes de la Propiedad</h3></div>
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <input type="file" id="inputImagenes" class="form-control" multiple>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button type="button" class="btn btn-primary btn-block" onclick="SubirImagenes()">
-                                            <i class="fas fa-upload"></i> Subir Imágenes
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="row mt-4" id="galeriaImagenes"></div>
+                                <div class="row mt-2" id="galeriaImagenes"></div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Botones -->
                     <div class="card card-danger mt-3">
                         <div class="card-header">
-                            <h3 class="card-title">PROCESOS</h3>
+                            <h3 class="card-title">Procesos</h3>
                         </div>
                         <div class="card-body">
                             <div class="row text-center">
@@ -131,28 +140,34 @@
                 </form>
             </div>
 
-            <div class="mt-4">
-                <table id="tblPropiedades" class="table table-bordered table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Título</th>
-                            <th>Área</th>
-                            <th>Habitaciones</th>
-                            <th>Baños</th>
-                            <th>Parqueaderos</th>
-                            <th>Venta</th>
-                            <th>Arriendo</th>
-                            <th>Ciudad</th>
-                            <th>Estado</th>
-                            <th>Tipo</th>
-                        </tr>
-                    </thead>
-                </table>
+            <!-- Tabla -->
+            <div class="card mt-4">
+                <div class="card-header bg-dark text-white"><h3 class="card-title">Listado de Propiedades</h3></div>
+                <div class="card-body">
+                    <table id="tblPropiedades" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Área</th>
+                                <th>Habitaciones</th>
+                                <th>Baños</th>
+                                <th>Parqueaderos</th>
+                                <th>Venta</th>
+                                <th>Arriendo</th>
+                                <th>Ciudad</th>
+                                <th>Estado</th>
+                                <th>Tipo</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
+
         </div>
     </section>
 
+    <!-- Scripts -->
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/bootstrap.bundle.min.js"></script>
     <script src="../Scripts/jquery.dataTables.min.js"></script>
