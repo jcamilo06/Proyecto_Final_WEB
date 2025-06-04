@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Explorar Propiedades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="Estilos/css/all.min.css" rel="stylesheet" />
+    <link href="Estilos/adminlte.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.bootstrap4.min.css" rel="stylesheet" />
+</head>
+<body class="hold-transition sidebar-mini">
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12" id="dvMenu"></div>
+
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">EXPLORAR PROPIEDADES</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-inline mb-3">
+                                <label for="txtid_propiedad" class="mr-2">ID PROPIEDAD</label>
+                                <input type="text" class="form-control mr-2" id="txtid_propiedad" placeholder="ID propiedad">
+                                <button type="button" class="btn btn-info" onclick="ConsultarPropiedad()">
+                                    <i class="fas fa-search"></i> Consultar
+                                </button>
+                            </div>
+                            <div id="dvMensaje" class="text-danger mb-3"></div>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="tblPropiedades">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Título</th>
+                                            <th>Área (m²)</th>
+                                            <th>Habitaciones</th>
+                                            <th>Baños</th>
+                                            <th>Parqueaderos</th>
+                                            <th>Precio Venta</th>
+                                            <th>Precio Arriendo</th>
+                                            <th>Ciudad</th>
+                                            <th>Estado</th>
+                                            <th>Tipo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="Scripts/Comunes/Comunes.js"></script>
+    <script src="Scripts/Comunes/CRUD.js"></script>
+    <script src="Scripts/ExplorarPropiedadesCliente.js"></script>
+</body>
+</html>

@@ -26,6 +26,9 @@
     document.cookie = "token=" + r.Token + expires + ";path=/";
     document.cookie = "Perfil=" + r.Perfil + expires + ";path=/";
     document.cookie = "Usuario=" + r.Usuario + expires + ";path=/";
+    document.cookie = "IdCliente=" + r.IdCliente + expires + ";path=/"; // <- NUEVA LÍNEA
+
+    console.log("Respuesta del login:", Respuesta);
 
     $("#dvMensaje").removeClass("alert alert-danger").addClass("alert alert-success").html(r.Mensaje);
 
