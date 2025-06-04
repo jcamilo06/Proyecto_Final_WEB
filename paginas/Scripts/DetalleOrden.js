@@ -1,120 +1,81 @@
-﻿var BaseURL = "http://inmobiliaria.runasp.net/api/DetalleOrden/";
+﻿var BaseURL = "http://inmobiliaria2025full.runasp.net/";
 
-$(function () {
+jQuery(function () {
     $("#dvMenu").load("../Paginas/Menu.html");
-    LlenarTablaDetalles();
+    LlenarTablaDetallesOrden();
 });
 
-function LlenarTablaDetalles() {
-    $.get(BaseURL + "ConsultarTodas", function (data) {
-        $("#tblDetalles").DataTable({
+function LlenarTablaDetallesOrden() {
+    let URL = BaseURL + "api/detalles_orden/ConsultarTodos";
+
+    $.get(URL, function (data) {
+        $("#tblDetallesOrden").DataTable({
             data: data,
             destroy: true,
             columns: [
-                { data: "id_detalle" },
-                { data: "id_orden" },
-                { data: "descripcion" },
-                { data: "cantidad" },
-                { data: "precio_unitario" },
+                { data: "ID_DETALLE" },
+                { data: "DESCRIPCION" },
+                { data: "CANTIDAD" },
+                { data: "PRECIO_UNITARIO" },
+                { data: "ORDEN.ID_ORDEN" }, 
                 {
-                    data: "id_detalle",
-                    render: function (id) {
-                        return `<button class="btn btn-sm btn-danger" onclick="EliminarPorId(${id})">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>`;
-                    },
-                    orderable: false
+                    data: "ORDEN.FECHA_ORDEN",
+                    render: function (d) {
+                        return d ? new Date(d).toLocaleDateString() : "";
+                    }
                 }
             ]
         });
     });
 }
 
-async function EjecutarComando(metodo, accion) {
-    const detalle = new DetalleOrden(
-        $("#txtid_detalle").val(),
-        $("#txtid_orden").val(),
-        $("#txtdescripcion").val(),
-        $("#txtcantidad").val(),
-        $("#txtprecio_unitario").val()
-    );
-
-    const url = BaseURL + accion;
-    const opciones = {
-        method: metodo,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(detalle)
+async function EjecutarComandoDetalleOrden(Metodo, Funcion) {
+    let URL = BaseURL + "api/detalles_orden/" + Funcion;
+    const detalleOrden = {
+        ID_DETALLE: parseInt($("#txtid_detalle").val()) || 0,
+        DESCRIPCION: $("#txtdescripcion").val(),
+        CANTIDAD: parseFloat($("#txtcantidad").val()) || 0,
+        PRECIO_UNITARIO: parseFloat($("#txtprecio_unitario").val()) || 0,
+        ID_ORDEN: parseInt($("#txtid_orden").val()) || 0 
     };
 
-    try {
-        const res = await fetch(url, opciones);
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaDetalles();
-    } catch (error) {
-        alert("Error al ejecutar operación: " + error);
+    const Rpta = await EjecutarComandoServicioRptaAuth(Metodo, URL, detalleOrden);
+    if (typeof Rpta === 'string') {
+        $("#dvMensaje").html(Rpta);
     }
+    LlenarTablaDetallesOrden();
 }
 
-async function Consultar() {
-    const id = $("#txtid_detalle").val();
-    if (!id) return alert("Por favor ingrese un ID de detalle.");
+async function ConsultarDetalleOrden() {
+    let id = $("#txtid_detalle").val();
 
-    const url = BaseURL + "ConsultarPorId?id=" + id;
-
-    try {
-        const res = await fetch(url);
-        if (!res.ok) return alert("Detalle no encontrado.");
-
-        const detalle = await res.json();
-        $("#txtid_orden").val(detalle.id_orden);
-        $("#txtdescripcion").val(detalle.descripcion);
-        $("#txtcantidad").val(detalle.cantidad);
-        $("#txtprecio_unitario").val(detalle.precio_unitario);
-    } catch (error) {
-        alert("Error al consultar el detalle: " + error);
+    if (!id || isNaN(id)) {
+        $("#dvMensaje").html("Por favor ingresa un ID de detalle de orden válido.");
+        return;
     }
-}
 
-async function EliminarDesdeFormulario() {
-    const id = $("#txtid_detalle").val();
-    if (!id) return alert("Debe ingresar el ID del detalle a eliminar.");
+    let URL = BaseURL + "api/detalles_orden/Consultar?id=" + id;
+    const detalleOrden = await ConsultarServicioAuth(URL);
 
-    if (!confirm("¿Está seguro que desea eliminar este detalle?")) return;
-
-    const url = BaseURL + "EliminarPorId?id=" + id;
-
-    try {
-        const res = await fetch(url, { method: "DELETE" });
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaDetalles();
-    } catch (error) {
-        alert("Error al eliminar: " + error);
-    }
-}
-
-async function EliminarPorId(id) {
-    if (!confirm("¿Está seguro que desea eliminar este detalle?")) return;
-
-    const url = BaseURL + "EliminarPorId?id=" + id;
-
-    try {
-        const res = await fetch(url, { method: "DELETE" });
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaDetalles();
-    } catch (error) {
-        alert("Error al eliminar: " + error);
+    if (detalleOrden && typeof detalleOrden === 'object' && !Array.isArray(detalleOrden)) {
+        $("#txtid_detalle").val(detalleOrden.ID_DETALLE);
+        $("#txtdescripcion").val(detalleOrden.DESCRIPCION);
+        $("#txtcantidad").val(detalleOrden.CANTIDAD);
+        $("#txtprecio_unitario").val(detalleOrden.PRECIO_UNITARIO);
+        $("#txtid_orden").val(detalleOrden.ORDEN?.ID_ORDEN || ""); 
+        $("#txtfecha_orden").val(detalleOrden.ORDEN?.FECHA_ORDEN?.split('T')[0] || ""); 
+    } else {
+        $("#dvMensaje").html(typeof detalleOrden === 'string' ? detalleOrden : "El detalle de orden no está en la base de datos");
+        $("#frmDetallesOrden input").val("");
     }
 }
 
 class DetalleOrden {
-    constructor(id_detalle, id_orden, descripcion, cantidad, precio_unitario) {
-        this.id_detalle = parseInt(id_detalle);
-        this.id_orden = parseInt(id_orden);
-        this.descripcion = descripcion;
-        this.cantidad = parseFloat(cantidad);
-        this.precio_unitario = parseFloat(precio_unitario);
+    constructor(id_detalle, descripcion, cantidad, precio_unitario, id_orden) {
+        this.ID_DETALLE = id_detalle;
+        this.DESCRIPCION = descripcion;
+        this.CANTIDAD = cantidad;
+        this.PRECIO_UNITARIO = precio_unitario;
+        this.ID_ORDEN = id_orden;
     }
 }
