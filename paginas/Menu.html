@@ -1,42 +1,114 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364);">
-    <div class="container-fluid">
-        <a class="navbar-brand font-weight-bold text-warning" href="#">
-            <i class="fas fa-building"></i> InmobiliariaPD
-        </a>
-        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarMenu"
-                aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+﻿<!-- menu.html -->
+<div id="navbarContainer"></div>
 
-        <div class="collapse navbar-collapse" id="navbarMenu">
-            <ul class="navbar-nav ml-auto">
+<script>
+    // Obtener el valor de una cookie
+    function getCookie(nombre) {
+        const valor = `; ${document.cookie}`;
+        const partes = valor.split(`; ${nombre}=`);
+        if (partes.length === 2) return partes.pop().split(';').shift();
+        return null;
+    }
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="menuServicios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-tools"></i> Servicios
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right bg-dark border-0" aria-labelledby="menuServicios">
-                        <a class="dropdown-item text-light" href="Empleado.html"><i class="fas fa-user-tie"></i> Empleado</a>
-                        <a class="dropdown-item text-light" href="Consignacion.html"><i class="fas fa-file-signature"></i> Consignación</a>
-                        <a class="dropdown-item text-light" href="Cliente.html"><i class="fas fa-users"></i> Cliente</a>
-                        <a class="dropdown-item text-light" href="Visita.html"><i class="fas fa-calendar-check"></i> Visita</a>
-                        <a class="dropdown-item text-light" href="DetalleOrden.html"><i class="fas fa-list-ul"></i> Detalle de Orden</a>
-                        <a class="dropdown-item text-light" href="sedes.html"><i class="fas fa-map-marker-alt"></i> Sede</a>
-                        <a class="dropdown-item text-light" href="Proyecto.html"><i class="fas fa-project-diagram"></i> Proyecto</a>
-                        <a class="dropdown-item text-light" href="Propiedades.html"><i class="fas fa-building"></i> Propiedades</a>
-                        <a class="dropdown-item text-light" href="Ventas.html"><i class="fas fa-handshake"></i> Ventas</a>
+    // Obtener datos desde cookies
+    const perfil = getCookie("Perfil"); // "ADMIN" o "USUARIO"
+    const nombreUsuario = getCookie("Usuario") || "Invitado";
 
+    // HTML del menú para empleados
+    const menuEmpleado = `
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364);">
+        <div class="container-fluid">
+            <a class="navbar-brand font-weight-bold text-warning" href="#">
+                <i class="fas fa-building"></i> InmobiliariaPD
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarMenu"
+                    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    </div>
-                </li>
-              
-                <li class="nav-item ml-3">
-                    <a class="btn btn-outline-light" href="Login.html">
-                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-                    </a>
-                </li>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ml-auto">
 
-            </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="menuServicios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-tools"></i> Servicios
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right bg-dark border-0" aria-labelledby="menuServicios">
+                            <a class="dropdown-item text-light" href="Empleado.html"><i class="fas fa-user-tie"></i> Empleado</a>
+                            <a class="dropdown-item text-light" href="Consignacion.html"><i class="fas fa-file-signature"></i> Consignación</a>
+                            <a class="dropdown-item text-light" href="Cliente.html"><i class="fas fa-users"></i> Cliente</a>
+                            <a class="dropdown-item text-light" href="Visita.html"><i class="fas fa-calendar-check"></i> Visita</a>
+                            <a class="dropdown-item text-light" href="DetalleOrden.html"><i class="fas fa-list-ul"></i> Detalle de Orden</a>
+                            <a class="dropdown-item text-light" href="sedes.html"><i class="fas fa-map-marker-alt"></i> Sede</a>
+                            <a class="dropdown-item text-light" href="Proyecto.html"><i class="fas fa-project-diagram"></i> Proyecto</a>
+                            <a class="dropdown-item text-light" href="Propiedades.html"><i class="fas fa-building"></i> Propiedades</a>
+                            <a class="dropdown-item text-light" href="Ventas.html"><i class="fas fa-handshake"></i> Ventas</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item nav-link text-white mr-3">
+                        <i class="fas fa-user"></i> ${nombreUsuario}
+                    </li>
+
+                    <li class="nav-item ml-2">
+                        <a class="btn btn-outline-light" href="Login.html">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>`;
+
+    // HTML del menú para clientes
+    const menuCliente = `
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364);">
+        <div class="container-fluid">
+            <a class="navbar-brand font-weight-bold text-warning" href="#">
+                <i class="fas fa-building"></i> InmobiliariaPD
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarMenu"
+                    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="ExplorarPropiedadesCliente.html"><i class="fas fa-building"></i> Explorar Propiedades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="VisitaCliente.html"><i class="fas fa-calendar-check"></i> Mis Visitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="ComprasArriendosCliente.html"><i class="fas fa-handshake"></i> Mis Compras y Arriendos</a>
+                    </li>
+                    <li class="nav-item nav-link text-white mr-3">
+                        <i class="fas fa-user"></i> ${nombreUsuario}
+                    </li>
+                    <li class="nav-item ml-2">
+                        <a class="btn btn-outline-light" href="Login.html">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>`;
+
+    // Inyectar menú según perfil
+    const navbarContainer = document.getElementById("navbarContainer");
+
+    if (perfil === "ADMIN") {
+        navbarContainer.innerHTML = menuEmpleado;
+    } else if (perfil === "USUARIO") {
+        navbarContainer.innerHTML = menuCliente;
+    } else {
+        navbarContainer.innerHTML = `
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <span class="navbar-text text-white">Usuario no autenticado</span>
+                </div>
+            </nav>`;
+    }
+</script>
