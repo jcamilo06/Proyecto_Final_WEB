@@ -93,3 +93,65 @@ function formatearFecha(fecha) {
         day: '2-digit'
     });
 }
+
+async function ConsultarVentaPorId() {
+    let idVenta = $("#txtid_ventas").val();
+    const idCliente = obtenerIdCliente();
+
+    if (!idVenta || isNaN(idVenta)) {
+        $("#dvMensajeVentas").html("Por favor ingresa un ID de venta válido.");
+        return;
+    }
+
+    const URL = BaseURL + "api/ventas/Consultar?id=" + idVenta;
+    const venta = await ConsultarServicioAuth(URL);
+
+    if (!venta || typeof venta !== 'object' || Array.isArray(venta)) {
+        $("#dvMensajeVentas").html("La venta no esta en la base de datos.");
+        return;
+    }
+
+    if (venta.CLIENTE?.ID_CLIENTE != idCliente) {
+        $("#dvMensajeVentas").html("La venta no esta en la base de datos.");
+        return;
+    }
+
+    // Mostrar la información en el formulario
+    $("#txtidventa").val(venta.ID_VENTA);
+    $("#txtpropiedadventa").val(venta.PROPIEDAD?.TITULO || "Sin título");
+    $("#txtfechaventa").val(formatearFecha(venta.FECHA_VENTA));
+    $("#txtprecioventa").val(parseFloat(venta.PRECIO_FINAL).toLocaleString());
+    $("#txtempleadoventa").val(venta.EMPLEADO?.NOMBRES || "No asignado");
+
+    $("#dvMensajeVentas").html(""); // Limpiar mensajes previos
+}
+
+async function ConsultarArriendoPorId() {
+    let id = $("#txtid_arriendos").val();
+    const idCliente = obtenerIdCliente();
+
+    if (!id || isNaN(id)) {
+        $("#dvMensajeArriendos").html("Por favor ingresa un ID de arriendo válido.");
+        return;
+    }
+
+
+    const url = BaseURL + "api/arriendos/Consultar?id=" + id;
+    const arriendo = await ConsultarServicioAuth(url);
+
+    // Validar que el arriendo corresponde al cliente logueado
+    if (arriendo && arriendo.CLIENTE?.ID_CLIENTE == idCliente) {
+        $("#txtidarriendo").val(arriendo.ID_ARRIENDO);
+        $("#txtpropiedadarriendo").val(arriendo.PROPIEDAD?.TITULO);
+        $("#txtfechainicioarriendo").val(formatearFecha(arriendo.FECHA_INICIO));
+        $("#txtfechafinarriendo").val(formatearFecha(arriendo.FECHA_FIN));
+        $("#txtcanonarriendo").val(parseFloat(arriendo.CANON_MENSUAL).toLocaleString());
+        $("#txtdepositoarriendo").val(parseFloat(arriendo.DEPOSITO).toLocaleString());
+        $("#txtempleadoarriendo").val(arriendo.EMPLEADO?.NOMBRES);
+        $("#dvMensajeArriendos").html("");
+
+    } else {
+        $("#dvMensajeArriendos").html("El arriendo no esta en la base de datos.");
+        $("#txtidarriendo, #txtpropiedadarriendo, #txtfechainicioarriendo, #txtfechafinarriendo, #txtprecioarriendo, #txtempleadoarriendo").val("");
+    }
+}
