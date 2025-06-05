@@ -21,7 +21,7 @@
                         <div class="card-header">
                             <h3 class="card-title">GESTIÓN DE VISITAS</h3>
                         </div>
-                        <form id="frmIncapacidades">
+                        <form id="frmVisitas">
                             <div class="card-body">
                                 <div class="card card-gray-dark">
                                     <div class="card-header">
@@ -109,29 +109,28 @@
                                     </div>
                                 </div>
 
-                                <div class="mt-4">
-                                    <table id="tblVisitas" class="table table-bordered table-striped">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Propiedad</th>
-                                                <th>Empleado</th>
-                                                <th>Tipo Visita</th>
-                                                <th>Cliente</th>
-                                                <th>Comentarios</th>
-                                                <th>Fecha y hora</th>
-                                                <th>Acción</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-
+                                <div class="card-footer">
+                                    <div id="dvMensaje" class="alert text-center" style="display: none;"></div>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <div id="dvMensaje" class="alert text-center"></div>
-                            </div>
                         </form>
+                    </div>
+
+                    <div class="mt-4">
+                        <table id="tblVisitas" class="table table-bordered table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Propiedad</th>
+                                    <th>Empleado</th>
+                                    <th>Tipo Visita</th>
+                                    <th>Cliente</th>
+                                    <th>Comentarios</th>
+                                    <th>Fecha y hora</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>

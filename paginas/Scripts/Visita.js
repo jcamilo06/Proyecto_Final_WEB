@@ -9,7 +9,7 @@ function LlenarTablaVisitas() {
     let URL = BaseURL + "api/visitas/ConsultarTodos";
     $.get(URL, function (data) {
         if (!Array.isArray(data)) {
-            alert("No se pudieron cargar las visitas.");
+            $("#dvMensaje").html("No se pudieron cargar las visitas.").addClass("alert-danger").show();
             return;
         }
 
@@ -42,18 +42,10 @@ function LlenarTablaVisitas() {
                         return dt.toLocaleString("es-CO");
                     }
                 },
-                { data: "COMENTARIOS" },
-                {
-                    data: "ID_VISITA",
-                    render: function (data) {
-                        return `<button class="btn btn-sm btn-danger" onclick="EliminarPorId(${data})">
-                                    <i class="fas fa-trash-alt"></i></button>`;
-                    },
-                    orderable: false
-                }
+                { data: "COMENTARIOS" }
             ]
         });
-    }).fail(() => alert("Error al cargar las visitas."));
+    }).fail(() => $("#dvMensaje").html("Error al cargar las visitas.").addClass("alert-danger").show());
 }
 
 async function EjecutarComando(metodo, accion) {
@@ -76,26 +68,30 @@ async function EjecutarComando(metodo, accion) {
             body: JSON.stringify(visita)
         });
         const mensaje = await res.text();
-        alert(mensaje);
+        $("#dvMensaje").html(mensaje).addClass("alert-info").show();
         LlenarTablaVisitas();
     } catch (error) {
-        alert("Error al realizar la operación: " + error);
+        $("#dvMensaje").html("Error: " + error).addClass("alert-danger").show();
     }
 }
 
 async function Consultar() {
     const id = $("#txtid_visita").val();
+    if (!id || isNaN(id)) {
+        $("#dvMensaje").html("Por favor ingresa un ID de visita válido.").addClass("alert-warning").show();
+        return;
+    }
+
     const url = BaseURL + "api/visitas/Consultar?id=" + id;
 
     try {
         const res = await fetch(url);
         if (!res.ok) {
-            alert("No se encontró la visita");
+            $("#dvMensaje").html("No se encontró la visita.").addClass("alert-warning").show();
             return;
         }
 
         const visita = await res.json();
-
         $("#txtid_visita").val(visita.ID_VISITA);
         $("#txtid_propiedad").val(visita.PROPIEDAD?.ID_PROPIEDAD || "");
         $("#txtid_cliente").val(visita.CLIENTE?.ID_CLIENTE || "");
@@ -109,36 +105,21 @@ async function Consultar() {
         } else {
             $("#txtfecha_hora").val("");
         }
+
+        $("#dvMensaje").html("Consulta exitosa.").addClass("alert-success").show();
     } catch (error) {
-        alert("Error al consultar la visita: " + error);
+        $("#dvMensaje").html("Error al consultar la visita: " + error).addClass("alert-danger").show();
     }
 }
 
-
-async function EliminarDesdeFormulario() {
+async function Eliminar() {
     const id = $("#txtid_visita").val();
-    if (!id || !confirm("¿Estás seguro de eliminar esta visita?")) return;
-
-    const url = BaseURL + "api/visitas/Eliminar"; // 🔁 CORREGIDA
-
-    try {
-        const res = await fetch(url, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ID_VISITA: parseInt(id) })
-        });
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaVisitas();
-    } catch (error) {
-        alert("Error al eliminar la visita: " + error);
+    if (!id || isNaN(id)) {
+        $("#dvMensaje").html("Por favor ingresa un ID de visita válido.").addClass("alert-warning").show();
+        return;
     }
-}
 
-async function EliminarPorId(id) {
-    if (!confirm("¿Estás seguro de que deseas eliminar esta visita?")) return;
-
-    const url = BaseURL + "api/visitas/Eliminar"; // 🔁 CORREGIDA
+    const url = BaseURL + "api/visitas/Eliminar";
 
     try {
         const res = await fetch(url, {
@@ -147,20 +128,20 @@ async function EliminarPorId(id) {
             body: JSON.stringify({ ID_VISITA: parseInt(id) })
         });
         const mensaje = await res.text();
-        alert(mensaje);
+        $("#dvMensaje").html(mensaje).addClass("alert-success").show();
         LlenarTablaVisitas();
     } catch (error) {
-        alert("Error al eliminar la visita: " + error);
+        $("#dvMensaje").html("Error al eliminar la visita: " + error).addClass("alert-danger").show();
     }
 }
 
 class Visita {
     constructor(id_visita, id_propiedad, id_cliente, id_empleado, id_tipo_visita, fecha_hora, comentarios) {
-        this.ID_VISITA = parseInt(id_visita);
-        this.ID_PROPIEDAD = parseInt(id_propiedad);
-        this.ID_CLIENTE = parseInt(id_cliente);
-        this.ID_EMPLEADO = parseInt(id_empleado);
-        this.ID_TIPO_VISITA = parseInt(id_tipo_visita);
+        this.ID_VISITA = id_visita;
+        this.ID_PROPIEDAD = id_propiedad;
+        this.ID_CLIENTE = id_cliente;
+        this.ID_EMPLEADO = id_empleado;
+        this.ID_TIPO_VISITA = id_tipo_visita;
         this.FECHA_HORA = fecha_hora;
         this.COMENTARIOS = comentarios;
     }
