@@ -66,7 +66,7 @@ async function Consultar() {
 }
 
 class Empleado {
-    constructor(id_empleado, identificacion, nombres, apellidos, telefono, email, direccion, cargo, fecha_ingreso, salario, sede_id, usuario, clave) {
+    constructor(id_empleado, identificacion, nombres, apellidos, telefono, email, direccion, cargo, fecha_ingreso, salario, sede_id) {
         this.ID_EMPLEADO = id_empleado;
         this.IDENTIFICACION = identificacion;
         this.NOMBRES = nombres;
@@ -78,7 +78,5 @@ class Empleado {
         this.FECHA_INGRESO = fecha_ingreso;
         this.SALARIO = salario;
         this.ID_SEDE = sede_id;
-        this.USUARIO = usuario;
-        this.CLAVE = clave;
     }
 }

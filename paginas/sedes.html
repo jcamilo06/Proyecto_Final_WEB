@@ -1,109 +1,128 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestión de Sedes</title>
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" />
-    <link rel="stylesheet" href="Estilos/css/all.min.css" />
-    <link rel="stylesheet" href="Estilos/adminlte.min.css" />
-    <link rel="stylesheet" href="Estilos/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="Estilos/css/all.min.css" rel="stylesheet" />
+    <link href="Estilos/adminlte.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.min.css" rel="stylesheet" />
+    <link href="Estilos/dataTables.bootstrap4.min.css" rel="stylesheet" />
 </head>
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-        <div id="dvMenu"></div>
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12" id="dvMenu"></div>
 
-        <section class="content mt-3">
-            <div class="container-fluid">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-building"></i> Gestión de Sedes</h3>
-                    </div>
-                    <form id="frmSede">
-                        <div class="card-body">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">GESTIÓN DE SEDES</h3>
+                        </div>
+                        <form id="frmSedes">
                             <div class="card-body">
-                                <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="txtid_sede">ID Sede</label>
-                                        <input type="number" class="form-control" id="txtid_sede" />
+                                <div class="card card-gray-dark">
+                                    <div class="card-header">
+                                        <h3 class="card-title">DATOS DE LA SEDE</h3>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="txtid_ciudad">ID Ciudad</label>
-                                        <input type="number" class="form-control" id="txtid_ciudad" />
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtid_sede">ID SEDE</label>
+                                                    <input type="text" class="form-control" id="txtid_sede" placeholder="ID de la sede">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtnombre">NOMBRE</label>
+                                                    <input type="text" class="form-control" id="txtnombre" placeholder="Nombre de la sede">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtdireccion">DIRECCIÓN</label>
+                                                    <input type="text" class="form-control" id="txtdireccion" placeholder="Dirección de la sede">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txttelefono">TELÉFONO</label>
+                                                    <input type="text" class="form-control" id="txttelefono" placeholder="Teléfono de la sede">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtid_ciudad">ID CIUDAD</label>
+                                                    <input type="text" class="form-control" id="txtid_ciudad" placeholder="ID de la ciudad">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="txtnombre">Nombre</label>
-                                        <input type="text" class="form-control" id="txtnombre" />
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="txttelefono">Teléfono</label>
-                                        <input type="text" class="form-control" id="txttelefono" />
-                                    </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="txtdireccion">Dirección</label>
-                                        <input type="text" class="form-control" id="txtdireccion" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer bg-light">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-success btn-block" onclick="EjecutarComandoSede('POST', 'Insertar')">
-                                        <i class="fas fa-plus-circle"></i> Insertar
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-warning btn-block" onclick="EjecutarComandoSede('PUT', 'Actualizar')">
-                                        <i class="fas fa-edit"></i> Actualizar
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-block" onclick="EliminarSedeDesdeFormulario()">
-                                        <i class="fas fa-trash"></i> Eliminar
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-info btn-block" onclick="ConsultarSede()">
-                                        <i class="fas fa-search"></i> Consultar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
 
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h3 class="card-title"><i class="fas fa-table"></i> Lista de Sedes</h3>
-                    </div>
-                    <div class="card-body">
-                        <table id="tblSedes" class="table table-bordered table-hover table-striped" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>ID Ciudad</th>
-                                    <th>Nombre</th>
-                                    <th>Teléfono</th>
-                                    <th>Dirección</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                        </table>
+                                <div class="card card-danger mt-3">
+                                    <div class="card-header">
+                                        <h3 class="card-title">PROCESOS</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row text-center">
+                                            <div class="col-md-3 mb-2">
+                                                <button type="button" id="btnInsertar" class="btn btn-success btn-block" onclick="EjecutarComandoSede('POST', 'Insertar')">
+                                                    <i class="fas fa-plus"></i> Insertar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3 mb-2">
+                                                <button type="button" id="btnActualizar" class="btn btn-warning btn-block" onclick="EjecutarComandoSede('PUT', 'Actualizar')">
+                                                    <i class="fas fa-edit"></i> Actualizar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3 mb-2">
+                                                <button type="button" id="btnEliminar" class="btn btn-danger btn-block" onclick="EjecutarComandoSede('DELETE', 'Eliminar')">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-3 mb-2">
+                                                <button type="button" id="btnConsultar" class="btn btn-info btn-block" onclick="ConsultarSede()">
+                                                    <i class="fas fa-search"></i> Consultar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <table id="tblSedes" class="table table-bordered table-striped">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <th>Dirección</th>
+                                                <th>Teléfono</th>
+                                                <th>ID Ciudad</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div id="dvMensaje" class="alert text-center"></div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
-    <!-- Scripts -->
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/bootstrap.bundle.min.js"></script>
     <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
-    <script src="Scripts/sedes.js"></script>
+    <script src="Scripts/Comunes/Comunes.js"></script>
+    <script src="Scripts/Comunes/CRUD.js"></script>
+    <script src="Scripts/Sedes.js"></script>
 </body>
 </html>

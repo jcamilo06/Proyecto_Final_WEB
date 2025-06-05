@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestión de Empleados</title>
+    <title>Gestión de Ventas</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link href="Estilos/css/all.min.css" rel="stylesheet" />
     <link href="Estilos/adminlte.min.css" rel="stylesheet" />
@@ -19,15 +19,41 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">GESTIÓN DE EMPLEADOS</h3>
+                            <h3 class="card-title">GESTIÓN DE VENTAS</h3>
                         </div>
-                        <form id="frmIncapacidades">
+                        <form id="frmVentas">
                             <div class="card-body">
                                 <div class="card card-gray-dark">
                                     <div class="card-header">
-                                        <h3 class="card-title">DATOS DEL EMPLEADO</h3>
+                                        <h3 class="card-title">DATOS DE LA VENTA</h3>
                                     </div>
                                     <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtid_venta">ID VENTA</label>
+                                                    <input type="text" class="form-control" id="txtid_venta" placeholder="ID de la venta">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtfecha_venta">FECHA</label>
+                                                    <input type="date" class="form-control" id="txtfecha_venta">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtid_propiedad">ID PROPIEDAD</label>
+                                                    <input type="text" class="form-control" id="txtid_propiedad" placeholder="ID de la propiedad">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtid_cliente">ID CLIENTE</label>
+                                                    <input type="text" class="form-control" id="txtid_cliente" placeholder="ID del cliente">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -35,70 +61,16 @@
                                                     <input type="text" class="form-control" id="txtid_empleado" placeholder="ID del empleado">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtidentificacion">IDENTIFICACIÓN</label>
-                                                    <input type="text" class="form-control" id="txtidentificacion" placeholder="Documento del empleado">
+                                                    <label for="txtprecio_final">PRECIO FINAL</label>
+                                                    <input type="text" class="form-control" id="txtprecio_final" placeholder="Precio final de la venta">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="txtnombres">NOMBRES</label>
-                                                    <input type="text" class="form-control" id="txtnombres" placeholder="Nombres del empleado">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtapellidos">APELLIDOS</label>
-                                                    <input type="text" class="form-control" id="txtapellidos" placeholder="Apellidos del empleado">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txttelefono">TELÉFONO</label>
-                                                    <input type="text" class="form-control" id="txttelefono" placeholder="Teléfono del empleado">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtemail">EMAIL</label>
-                                                    <input type="text" class="form-control" id="txtemail" placeholder="Email del empleado">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtdireccion">DIRECCIÓN</label>
-                                                    <input type="text" class="form-control" id="txtdireccion" placeholder="Dirección del empleado">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtcargo">CARGO</label>
-                                                    <input type="text" class="form-control" id="txtcargo" placeholder="Cargo del empleado">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtfecha_ingreso">FECHA DE INGRESO</label>
-                                                    <input type="date" class="form-control" id="txtfecha_ingreso">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtsalario">SALARIO</label>
-                                                    <input type="text" class="form-control" id="txtsalario" placeholder="Salario del empleado">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtsede_id">SEDE ID</label>
-                                                    <input type="text" class="form-control" id="txtsede_id" placeholder="Sede del empleado">
+                                                    <label for="txtcomision">COMISIÓN</label>
+                                                    <input type="text" class="form-control" id="txtcomision" placeholder="Comisión del empleado">
                                                 </div>
                                             </div>
                                         </div>
@@ -136,22 +108,19 @@
                                 </div>
 
                                 <div class="mt-4">
-                                    <table id="tblEmpleados" class="table table-bordered table-striped">
+                                    <table id="tablaVentas" class="table table-bordered table-striped">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Identificación</th>
-                                                <th>Nombres</th>
-                                                <th>Apellidos</th>
-                                                <th>Teléfono</th>
-                                                <th>Email</th>
-                                                <th>Dirección</th>
-                                                <th>Cargo</th>
-                                                <th>Ingreso</th>
-                                                <th>Salario</th>
-                                                <th>Sede</th>
+                                                <th>Fecha</th>
+                                                <th>Propiedad</th>
+                                                <th>Cliente</th>
+                                                <th>Empleado</th>
+                                                <th>Precio Final</th>
+                                                <th>Comisión</th>
                                             </tr>
                                         </thead>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -171,6 +140,6 @@
     <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
     <script src="Scripts/Comunes/Comunes.js"></script>
     <script src="Scripts/Comunes/CRUD.js"></script>
-    <script src="Scripts/Empleado.js"></script>
+    <script src="Scripts/ventas.js"></script>
 </body>
 </html>

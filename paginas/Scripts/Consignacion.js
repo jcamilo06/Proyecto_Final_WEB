@@ -1,57 +1,92 @@
-﻿var BaseURL = "http://inmobiliaria.runasp.net/";
+﻿var BaseURL = "http://inmobiliaria2025full.runasp.net/";
+
 jQuery(function () {
     $("#dvMenu").load("../Paginas/Menu.html");
     LlenarTablaConsignaciones();
 });
 
 function LlenarTablaConsignaciones() {
-    let URL = BaseURL + "api/Consignaciones/ConsultarTodos";
-    LlenarTablaXServiciosAuth(URL, "#tblConsignaciones");
+    let URL = BaseURL + "api/consignaciones/ConsultarTodos";
+
+    $.get(URL, function (data) {
+        $("#tblConsignaciones").DataTable({
+            data: data,
+            destroy: true,
+            columns: [
+                { data: "ID_CONSIGNACION" },
+                {
+                    data: "FECHA_INICIO",
+                    render: function (d) {
+                        return d ? new Date(d).toLocaleDateString() : "";
+                    }
+                },
+                {
+                    data: "FECHA_FIN",
+                    render: function (d) {
+                        return d ? new Date(d).toLocaleDateString() : "Sin finalizar";
+                    }
+                },
+                { data: "PORCENTAJE_COMISION" },
+                { data: "PROPIEDAD.ID_PROPIEDAD" },
+                { data: "PROPIEDAD.TITULO" },
+                { data: "PROPIETARIO.ID_PROPIETARIO" },
+                { data: "PROPIETARIO.NOMBRES" }
+            ]
+        });
+    });
 }
-async function EjecutarComando(Metodo, Funcion) {
-    let URL = BaseURL + "api/Consignaciones/" + Funcion;
-    //Se construye el objeto consignacion
-    const consignacion = new Consignacion($("#txtid_consignacion").val(), $("#txtid_propiedad").val(), $("#txtid_propietario").val(), $("#txtfecha_inicio").val(),
-        $("#txtfecha_fin").val(), $("#txtporcentaje_comision").val());
-    //Invoca el comando para ejecutar
+
+async function EjecutarComandoConsignacion(Metodo, Funcion) {
+    let URL = BaseURL + "api/consignaciones/" + Funcion;
+    const consignacion = {
+        ID_CONSIGNACION: parseInt($("#txtid_consignacion").val()) || 0,
+        FECHA_INICIO: $("#txtfecha_inicio").val(),
+        FECHA_FIN: $("#txtfecha_fin").val() || null,
+        PORCENTAJE_COMISION: parseFloat($("#txtporcentaje_comision").val()) || 0,
+        ID_PROPIEDAD: parseInt($("#txtid_propiedad").val()) || 0,
+        ID_PROPIETARIO: parseInt($("#txtid_propietario").val()) || 0
+    };
+
     const Rpta = await EjecutarComandoServicioRptaAuth(Metodo, URL, consignacion);
+    if (typeof Rpta === 'string') {
+        $("#dvMensaje").html(Rpta);
+    }
     LlenarTablaConsignaciones();
 }
-async function Consultar() {
-    let id_consignacion = $("#txtid_consignacion").val();
-    let URL = BaseURL + "/api/Consignaciones/ConsultarXId?id=" + id_consignacion;
-    const consignacion = await ConsultarServicioAuth(URL);
-    if (consignacion != null) {
 
-        $("#txtid_consignacion").val(consignacion.id_consignacion);
-        $("#txtid_propiedad").val(consignacion.id_propiedad);
-        $("#txtid_propietario").val(consignacion.id_propietario);
-        $("#txtfecha_inicio").val(consignacion.fecha_inicio.split('T')[0]);
-        $("#txtfecha_fin").val(consignacion.fecha_fin.split('T')[0]);
-        $("#txtporcentaje_comision").val(consignacion.porcentaje_comision);
-        
-       
+async function ConsultarConsignacion() {
+    let id = $("#txtid_consignacion").val();
+
+    if (!id || isNaN(id)) {
+        $("#dvMensaje").html("Por favor ingresa un ID de consignación válido.");
+        return;
     }
-    else {
-        $("#dvMensaje").html("La consignación no está en la base de datos");
-        $("#txtid_consignacion").val("");
-        $("#txtid_propiedad").val("");
-        $("#txtid_propietario").val("");
-        $("#txtfecha_inicio").val("");
-        $("#txtfecha_fin").val("");
-        $("#txtporcentaje_comision").val("");
-        
+
+    let URL = BaseURL + "api/consignaciones/Consultar?id=" + id;
+    const consignacion = await ConsultarServicioAuth(URL);
+
+    if (consignacion && typeof consignacion === 'object' && !Array.isArray(consignacion)) {
+        $("#txtid_consignacion").val(consignacion.ID_CONSIGNACION);
+        $("#txtfecha_inicio").val(consignacion.FECHA_INICIO ? consignacion.FECHA_INICIO.split('T')[0] : "");
+        $("#txtfecha_fin").val(consignacion.FECHA_FIN ? consignacion.FECHA_FIN.split('T')[0] : "");
+        $("#txtporcentaje_comision").val(consignacion.PORCENTAJE_COMISION);
+        $("#txtid_propiedad").val(consignacion.PROPIEDAD?.ID_PROPIEDAD || "");
+        $("#txttitulo_propiedad").val(consignacion.PROPIEDAD?.TITULO || "");
+        $("#txtid_propietario").val(consignacion.PROPIETARIO?.ID_PROPIETARIO || "");
+        $("#txtnombre_propietario").val(consignacion.PROPIETARIO?.NOMBRES || "");
+    } else {
+        $("#dvMensaje").html(typeof consignacion === 'string' ? consignacion : "La consignación no está en la base de datos");
+        $("#frmConsignaciones input").val("");
     }
 }
-class Consignacion {
-    constructor(id_consignacion, id_propiedad, id_propietario, fecha_inicio, fecha_fin, porcentaje_comision) {
-        this.id_consignacion = id_consignacion;
-        this.id_propiedad = id_propiedad;
-        this.id_propietario = id_propietario;
-        this.fecha_inicio = fecha_inicio;
-        this.fecha_fin = fecha_fin;
-        this.porcentaje_comision = porcentaje_comision;
-       
 
+class Consignacion {
+    constructor(id_consignacion, fecha_inicio, fecha_fin, porcentaje_comision, propiedad, propietario) {
+        this.ID_CONSIGNACION = id_consignacion;
+        this.FECHA_INICIO = fecha_inicio;
+        this.FECHA_FIN = fecha_fin;
+        this.PORCENTAJE_COMISION = porcentaje_comision;
+        this.PROPIEDAD = propiedad;
+        this.PROPIETARIO = propietario;
     }
 }
