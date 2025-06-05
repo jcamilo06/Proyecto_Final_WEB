@@ -94,10 +94,10 @@ async function Consultar() {
         const visita = await res.json();
 
         // Verifica si el objeto tiene contenido válido
-        if (!visita || !visita.ID_VISITA) {
-            $("#dvMensaje").html("No se encontró la visita.");
-            return;
-        }
+        //if (!visita || !visita.ID_VISITA) {
+        //    $("#dvMensaje").html("No se encontró la visita.");
+        //    return;
+        //}
 
         $("#txtid_visita").val(visita.ID_VISITA);
         $("#txtid_propiedad").val(visita.PROPIEDAD?.ID_PROPIEDAD || "");
