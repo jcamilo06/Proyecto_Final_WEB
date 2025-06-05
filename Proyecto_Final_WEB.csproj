@@ -200,6 +200,7 @@
     <Content Include="paginas\Scripts\TipoVisita.js" />
     <Content Include="paginas\Scripts\ventas.js" />
     <Content Include="paginas\Scripts\Visita.js" />
+    <Content Include="paginas\Scripts\VisitasCliente.js" />
     <Content Include="paginas\Sedes.html" />
     <Content Include="paginas\TipoVisita.html" />
     <Content Include="paginas\ventas.html" />
