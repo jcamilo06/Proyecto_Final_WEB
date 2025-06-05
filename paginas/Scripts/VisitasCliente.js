@@ -2,11 +2,21 @@
 
 jQuery(function () {
     $("#dvMenu").load("../Paginas/Menu.html");
-    LlenarTablaVisitas();
+
+    const ID_CLIENTE = ObtenerCookie("IdCliente");
+    if (!ID_CLIENTE) {
+        $("#dvMensaje").html("No se pudo identificar el cliente.")
+            .addClass("alert alert-danger").show();
+        return;
+    }
+
+    $("#txtid_cliente").val(ID_CLIENTE).prop("readonly", true);
+    LlenarTablaVisitas(ID_CLIENTE);
 });
 
-function LlenarTablaVisitas() {
+function LlenarTablaVisitas(ID_CLIENTE) {
     let URL = BaseURL + "api/visitas/ConsultarTodos";
+
     $.get(URL, function (data) {
         if (!Array.isArray(data)) {
             $("#dvMensaje").html("No se pudieron cargar las visitas.")
@@ -14,28 +24,19 @@ function LlenarTablaVisitas() {
             return;
         }
 
+        // ✅ Filtrar correctamente usando CLIENTE.ID_CLIENTE
+        const visitasFiltradas = data.filter(v => v.CLIENTE?.ID_CLIENTE == ID_CLIENTE);
+
         const tabla = $("#tblVisitas");
         tabla.DataTable({
-            data: data,
+            data: visitasFiltradas,
             destroy: true,
             columns: [
                 { data: "ID_VISITA" },
-                {
-                    data: null,
-                    render: v => v.PROPIEDAD?.TITULO || "-"
-                },
-                {
-                    data: null,
-                    render: v => v.CLIENTE?.NOMBRES || "-"
-                },
-                {
-                    data: null,
-                    render: v => v.EMPLEADO?.NOMBRES || "-"
-                },
-                {
-                    data: null,
-                    render: v => v.TIPO_VISITA?.DESCRIPCION || "-"
-                },
+                { data: null, render: v => v.PROPIEDAD?.TITULO || "-" },
+                { data: null, render: v => v.CLIENTE?.NOMBRES || "-" },
+                { data: null, render: v => v.EMPLEADO?.NOMBRES || "-" },
+                { data: null, render: v => v.TIPO_VISITA?.DESCRIPCION || "-" },
                 {
                     data: "FECHA_HORA",
                     render: function (data) {
@@ -51,6 +52,7 @@ function LlenarTablaVisitas() {
             .addClass("alert-danger").show();
     });
 }
+
 
 async function EjecutarComando(metodo, accion) {
     const visita = new Visita(
@@ -73,7 +75,9 @@ async function EjecutarComando(metodo, accion) {
         });
         const mensaje = await res.text();
         $("#dvMensaje").html(mensaje).addClass("alert-info").show();
-        LlenarTablaVisitas();
+
+        const ID_CLIENTE = ObtenerCookie("IdCliente");
+        LlenarTablaVisitas(ID_CLIENTE);
     } catch (error) {
         $("#dvMensaje").html("Error: " + error).addClass("alert-danger").show();
     }
@@ -107,7 +111,7 @@ async function Consultar() {
 
         $("#txtid_visita").val(visita.ID_VISITA);
         $("#txtid_propiedad").val(visita.PROPIEDAD?.ID_PROPIEDAD || "");
-        $("#txtid_cliente").val(visita.CLIENTE?.ID_CLIENTE || "");
+        $("#txtid_cliente").val(visita.CLIENTE?.ID_CLIENTE || "").prop("readonly", true);
         $("#txtid_empleado").val(visita.EMPLEADO?.ID_EMPLEADO || "");
         $("#txtid_tipo_visita").val(visita.TIPO_VISITA?.ID_TIPO_VISITA || "");
         $("#txtcomentarios").val(visita.COMENTARIOS || "");
@@ -146,7 +150,9 @@ async function Eliminar() {
         const mensaje = await res.text();
         $("#dvMensaje").html(mensaje)
             .addClass("alert-success").show();
-        LlenarTablaVisitas();
+
+        const ID_CLIENTE = ObtenerCookie("IdCliente");
+        LlenarTablaVisitas(ID_CLIENTE);
     } catch (error) {
         $("#dvMensaje").html("Error al eliminar la visita: " + error)
             .addClass("alert-danger").show();
@@ -162,5 +168,20 @@ class Visita {
         this.ID_TIPO_VISITA = id_tipo_visita;
         this.FECHA_HORA = fecha_hora;
         this.COMENTARIOS = comentarios;
+    }
+}
+
+function ObtenerCookie(nombre) {
+    const valor = `; ${document.cookie}`;
+    const partes = valor.split(`; ${nombre}=`);
+    if (partes.length === 2) return partes.pop().split(';').shift();
+    return null;
+}
+
+
+class Login {
+    constructor(Usuario, Clave) {
+        this.Usuario = Usuario;
+        this.Clave = Clave;
     }
 }
