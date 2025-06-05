@@ -73,46 +73,6 @@ async function ConsultarPropiedad() {
     }
 }
 
-async function SubirImagenes() {
-    let idPropiedad = $("#txtid_propiedad").val();
-    let archivos = $("#inputImagenes")[0].files;
-
-    if (!idPropiedad || archivos.length === 0) {
-        alert("Seleccione una propiedad y al menos una imagen.");
-        return;
-    }
-
-    let formData = new FormData();
-    for (let i = 0; i < archivos.length; i++) {
-        formData.append("file", archivos[i]); // ✅ usa siempre 'file'
-    }
-
-    let url = BaseURL + "api/UploadFiles/Subir?Datos=" + encodeURIComponent(idPropiedad) + "&Proceso=IMAGEN";
-    const token = localStorage.getItem("token");
-
-    try {
-        let response = await fetch(url, {
-            method: "POST",
-            body: formData,
-            headers: {
-                "Authorization": "Bearer " + token
-                // NO pongas Content-Type
-            }
-        });
-
-        if (!response.ok) throw new Error(await response.text());
-
-        let result = await response.text();
-        alert("Imágenes subidas: " + result);
-
-        ConsultarPropiedad();
-    } catch (error) {
-        alert("Error al subir imágenes: " + error.message);
-        console.error(error);
-    }
-}
-
-
 function MostrarImagenesPropiedadDesdeObjeto(propiedad) {
     let galeria = $("#galeriaImagenes");
     galeria.empty();
@@ -123,10 +83,11 @@ function MostrarImagenesPropiedadDesdeObjeto(propiedad) {
         imagenes.forEach(img => {
             let tarjeta = `
                 <div class="col-md-3 mb-3">
-                    <div class="card">
+                    <div class="card shadow">
                         <img src="${BaseURL}api/UploadFiles/Consultar?NombreImagen=${img.NOMBRE}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                        <div class="card-body p-2 text-center">
-                            <button class="btn btn-danger btn-sm" onclick="EliminarImagen('${img.NOMBRE}', ${propiedad.ID_PROPIEDAD})">Eliminar</button>
+                        <div class="card-body text-center">
+                            <h6 class="card-title">${propiedad.TITULO}</h6>
+                            <p class="card-text text-muted">${propiedad.DESCRIPCION}</p>
                         </div>
                     </div>
                 </div>`;
@@ -134,27 +95,6 @@ function MostrarImagenesPropiedadDesdeObjeto(propiedad) {
         });
     } else {
         galeria.append('<div class="col-12 text-center text-muted">No hay imágenes para esta propiedad.</div>');
-    }
-}
-
-async function EliminarImagen(nombreImagen, idPropiedad) {
-    if (!confirm("¿Está seguro de eliminar esta imagen?")) return;
-
-    const token = localStorage.getItem("token");
-    const url = BaseURL + "api/UploadFiles/Eliminar?NombreImagen=" + nombreImagen;
-
-    const response = await fetch(url, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    });
-
-    if (response.ok) {
-        alert("Imagen eliminada.");
-        ConsultarPropiedad(); // 🔁 Refresca galería al eliminar
-    } else {
-        alert("No se pudo eliminar la imagen.");
     }
 }
 

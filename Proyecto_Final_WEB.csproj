@@ -123,6 +123,7 @@
     <Content Include="Global.asax" />
     <Content Include="paginas\Ciudad.html" />
     <Content Include="paginas\Cliente.html" />
+    <Content Include="paginas\ComprasArriendosCliente.html" />
     <Content Include="paginas\Consignacion.html" />
     <Content Include="paginas\dashboardAdmin.html" />
     <Content Include="paginas\dashboardPublic.html" />
@@ -172,9 +173,11 @@
     <Content Include="paginas\Pagina2.html" />
     <Content Include="paginas\PaginaBase.html" />
     <Content Include="paginas\Propiedades.html" />
+    <Content Include="paginas\ExplorarPropiedadesCliente.html" />
     <Content Include="paginas\PropiedadModelo.html" />
     <Content Include="paginas\Propietario.html" />
     <Content Include="paginas\Proyecto.html" />
+    <Content Include="paginas\Scripts\ComprasArriendosCliente.js" />
     <Content Include="paginas\Scripts\Cliente.js" />
     <Content Include="paginas\Scripts\Comunes\Comunes.js" />
     <Content Include="paginas\Scripts\Comunes\CRUD.js" />
@@ -182,6 +185,7 @@
     <Content Include="paginas\Scripts\DetalleOrden.js" />
     <Content Include="paginas\Scripts\Empleado.js" />
     <Content Include="paginas\Scripts\EstadoPropiedad.js" />
+    <Content Include="paginas\Scripts\ExplorarPropiedadesCliente.js" />
     <Content Include="paginas\Scripts\ImagenPropiedad.js" />
     <Content Include="paginas\Scripts\Login.js" />
     <Content Include="paginas\Scripts\Menu.js" />
@@ -194,9 +198,11 @@
     <Content Include="paginas\Scripts\Proyecto.js" />
     <Content Include="paginas\Scripts\Sedes.js" />
     <Content Include="paginas\Scripts\TipoVisita.js" />
+    <Content Include="paginas\Scripts\ventas.js" />
     <Content Include="paginas\Scripts\Visita.js" />
     <Content Include="paginas\Sedes.html" />
     <Content Include="paginas\TipoVisita.html" />
+    <Content Include="paginas\ventas.html" />
     <Content Include="paginas\Visita.html" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
@@ -342,6 +348,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Archivos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
