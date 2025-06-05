@@ -9,7 +9,7 @@ function LlenarTablaVisitas() {
     let URL = BaseURL + "api/visitas/ConsultarTodos";
     $.get(URL, function (data) {
         if (!Array.isArray(data)) {
-            $("#dvMensaje").html("No se pudieron cargar las visitas.").addClass("alert-danger").show();
+            $("#dvMensaje").html("No se pudieron cargar las visitas.");
             return;
         }
 
@@ -45,7 +45,7 @@ function LlenarTablaVisitas() {
                 { data: "COMENTARIOS" }
             ]
         });
-    }).fail(() => $("#dvMensaje").html("Error al cargar las visitas.").addClass("alert-danger").show());
+    }).fail(() => $("#dvMensaje").html("Error al cargar las visitas.");
 }
 
 async function EjecutarComando(metodo, accion) {
@@ -68,17 +68,17 @@ async function EjecutarComando(metodo, accion) {
             body: JSON.stringify(visita)
         });
         const mensaje = await res.text();
-        $("#dvMensaje").html(mensaje).addClass("alert-info").show();
+        $("#dvMensaje").html(mensaje);
         LlenarTablaVisitas();
     } catch (error) {
-        $("#dvMensaje").html("Error: " + error).addClass("alert-danger").show();
+        $("#dvMensaje").html("Error: " + error);
     }
 }
 
 async function Consultar() {
     const id = $("#txtid_visita").val();
     if (!id || isNaN(id)) {
-        $("#dvMensaje").html("Por favor ingresa un ID de visita válido.").addClass("alert-warning").show();
+        $("#dvMensaje").html("Por favor ingresa un ID de visita válido.");
         return;
     }
 
@@ -87,11 +87,18 @@ async function Consultar() {
     try {
         const res = await fetch(url);
         if (!res.ok) {
-            $("#dvMensaje").html("No se encontró la visita.").addClass("alert-warning").show();
+            $("#dvMensaje").html("No se encontró la visita.");
             return;
         }
 
         const visita = await res.json();
+
+        // Verifica si el objeto tiene contenido válido
+        if (!visita || !visita.ID_VISITA) {
+            $("#dvMensaje").html("No se encontró la visita.");
+            return;
+        }
+
         $("#txtid_visita").val(visita.ID_VISITA);
         $("#txtid_propiedad").val(visita.PROPIEDAD?.ID_PROPIEDAD || "");
         $("#txtid_cliente").val(visita.CLIENTE?.ID_CLIENTE || "");
@@ -106,16 +113,16 @@ async function Consultar() {
             $("#txtfecha_hora").val("");
         }
 
-        $("#dvMensaje").html("Consulta exitosa.").addClass("alert-success").show();
+        $("#dvMensaje").html("Consulta exitosa.");
     } catch (error) {
-        $("#dvMensaje").html("Error al consultar la visita: " + error).addClass("alert-danger").show();
+        $("#dvMensaje").html("Error al consultar la visita: " + error);
     }
 }
 
 async function Eliminar() {
     const id = $("#txtid_visita").val();
     if (!id || isNaN(id)) {
-        $("#dvMensaje").html("Por favor ingresa un ID de visita válido.").addClass("alert-warning").show();
+        $("#dvMensaje").html("Por favor ingresa un ID de visita válido.");
         return;
     }
 
@@ -131,7 +138,7 @@ async function Eliminar() {
         $("#dvMensaje").html(mensaje).addClass("alert-success").show();
         LlenarTablaVisitas();
     } catch (error) {
-        $("#dvMensaje").html("Error al eliminar la visita: " + error).addClass("alert-danger").show();
+        $("#dvMensaje").html("Error al eliminar la visita: " + error);
     }
 }
 
