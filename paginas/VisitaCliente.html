@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tus Visitas</title>
+    <title>Gestionar Visitas</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link href="Estilos/css/all.min.css" rel="stylesheet" />
     <link href="Estilos/adminlte.min.css" rel="stylesheet" />
@@ -19,117 +19,116 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">TUS VISITAS</h3>
+                            <h3 class="card-title"><i class="fas fa-building"></i> Tus Visitas</h3>
                         </div>
-                        <form id="frmIncapacidades">
+                        <form id="frmVisitas">
                             <div class="card-body">
-                                <div class="card card-gray-dark">
-                                    <div class="card-header">
-                                        <h3 class="card-title">DATOS DE LA VISITA</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtid_visita">ID VISITA</label>
-                                                    <input type="text" class="form-control" id="txtid_visita" placeholder="ID de la visita">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtpropiedad">PROPIEDAD</label>
-                                                    <input type="text" class="form-control" id="txtpropiedad" placeholder="Propiedad">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtempleado"> EMPLEADO</label>
-                                                    <input type="text" class="form-control" id="txtempleado" placeholder="Empleado">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txttipovisita">TIPO VISITA</label>
-                                                    <input type="text" class="form-control" id="txttipovisita" placeholder="Tipo Visita">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtcliente">CLIENTE</label>
-                                                    <input type="text" class="form-control" id="txtcliente" placeholder="Cliente">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtcomentarios">COMENTARIOS</label>
-                                                    <input type="text" class="form-control" id="txtcomentarios" placeholder="Comentarios">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="txtfecha_hora">FECHA Y HORA</label>
-                                                    <input type="date" class="form-control" id="txtfecha_hora">
-                                                </div>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="txtid_visita">ID VISITA</label>
+                                            <input type="text" class="form-control" id="txtid_visita" placeholder="ID de la visita">
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="card card-danger mt-3">
-                                    <div class="card-header">
-                                        <h3 class="card-title">PROCESOS</h3>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="txtid_propiedad">PROPIEDAD</label>
+                                            <input type="text" class="form-control" id="txtid_propiedad" placeholder="Id de propiedad">
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="row text-center">
-                                            <div class="col-md-3 mb-2">
-                                                <button type="button" id="btnInsertar" class="btn btn-success btn-block" onclick="EjecutarComando('POST', 'Insertar')">
-                                                    <i class="fas fa-plus"></i> Insertar
-                                                </button>
-                                            </div>
-                                            <div class="col-md-3 mb-2">
-                                                <button type="button" id="btnActualizar" class="btn btn-warning btn-block" onclick="EjecutarComando('PUT', 'Actualizar')">
-                                                    <i class="fas fa-edit"></i> Actualizar
-                                                </button>
-                                            </div>
-                                            <div class="col-md-3 mb-2">
-                                                <button type="button" id="btnEliminar" class="btn btn-danger btn-block" onclick="EjecutarComando('DELETE', 'Eliminar')">
-                                                    <i class="fas fa-trash"></i> Eliminar
-                                                </button>
-                                            </div>
-                                            <div class="col-md-3 mb-2">
-                                                <button type="button" id="btnConsultar" class="btn btn-info btn-block" onclick="Consultar()">
-                                                    <i class="fas fa-search"></i> Consultar
-                                                </button>
-                                            </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="txtid_empleado"> EMPLEADO</label>
+                                            <input type="text" class="form-control" id="txtid_empleado" placeholder="Id de empleado">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="txtid_tipo_visita">TIPO VISITA</label>
+                                            <input type="text" class="form-control" id="txtid_tipo_visita" placeholder="Id del tipo visita">
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="mt-4">
-                                    <table id="tblVisitas" class="table table-bordered table-striped">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Propiedad</th>
-                                                <th>Empleado</th>
-                                                <th>Tipo Visita</th>
-                                                <th>Cliente</th>
-                                                <th>Comentarios</th>
-                                                <th>Fecha y hora</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="txtid_cliente">CLIENTE</label>
+                                            <input type="text" class="form-control" id="txtid_cliente" placeholder="Id de cliente" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="txtcomentarios">COMENTARIOS</label>
+                                            <input type="text" class="form-control" id="txtcomentarios" placeholder="Comentarios">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="txtfecha_hora">FECHA Y HORA</label>
+                                            <input type="datetime-local" class="form-control" id="txtfecha_hora">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="card-footer bg-light">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-success btn-block" onclick="EjecutarComando('POST', 'Insertar')">
+                                            <i class="fas fa-plus-circle"></i> Agendar
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-warning btn-block" onclick="EjecutarComando('PUT', 'Actualizar')">
+                                            <i class="fas fa-edit"></i> Actualizar
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <button type="button" id="btnEliminar" class="btn btn-danger btn-block" onclick="EjecutarComando('DELETE', 'Eliminar')">
+                                            <i class="fas fa-trash"></i> Cancelar
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-info btn-block" onclick="Consultar()">
+                                            <i class="fas fa-search"></i> Consultar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="card-footer">
-                                <div id="dvMensaje" class="alert text-center"></div>
+                                <div id="dvMensaje" class="alert text-center" style="display: none;"></div>
                             </div>
                         </form>
+                        <div class="card-footer">
+                            <div id="dvMensaje" class="alert alert-secondary text-center"></div>
+                        </div>
                     </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header bg-primary text-white">
+                            <h3 class="card-title"><i class="fas fa-calendar-check"></i> Lista de Visitas</h3>
+                        </div>
+                        <div class="card-body">
+                            <table id="tblVisitas" class="table table-bordered table-hover table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Propiedad</th>
+                                        <th>Cliente</th>
+                                        <th>Empleado</th>
+                                        <th>Tipo Visita</th>
+                                        <th>Fecha y hora</th>
+                                        <th>Comentarios</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -141,6 +140,6 @@
     <script src="../Scripts/dataTables.bootstrap4.min.js"></script>
     <script src="Scripts/Comunes/Comunes.js"></script>
     <script src="Scripts/Comunes/CRUD.js"></script>
-    <script src="Scripts/Cliente.js"></script>
+    <script src="Scripts/VisitasCliente.js"></script>
 </body>
 </html>
