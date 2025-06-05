@@ -3,190 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis Compras y Arriendos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link href="Estilos/css/all.min.css" rel="stylesheet" />
     <link href="Estilos/adminlte.min.css" rel="stylesheet" />
     <link href="Estilos/dataTables.min.css" rel="stylesheet" />
     <link href="Estilos/dataTables.bootstrap4.min.css" rel="stylesheet" />
 </head>
-<style>
-    .seccion-titulo {
-        font-family: 'Source Sans Pro', sans-serif;
-        font-weight: 700;
-        font-size: 1.5rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-    }
-</style>
 <body>
-    <section class="content mt-3">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12" id="dvMenu"></div>
+    <div class="container mt-4">
+        <h1 class="mb-4">Compras y Arriendos</h1>
 
-                <div class="col-md-12">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">MIS COMPRAS Y ARRIENDOS</h3>
-                        </div>
+        <button class="btn btn-primary mb-3" onclick="Consultar()">Consultar</button>
+        <div id="dvMensaje"></div>
 
-                        <div class="card-body">
-                            <h3 class="seccion-titulo">Compras</h3>
-                            <div class="form-inline mb-3">
-                                <label for="txtid_ventas" class="mr-2">ID VENTA</label>
-                                <input type="text" class="form-control mr-2" id="txtid_ventas" placeholder="ID venta">
-                                <button type="button" class="btn btn-info" onclick="ConsultarVentaPorId()">
-                                    <i class="fas fa-search"></i> Consultar
-                                </button>
-                            </div>
-                            <div id="dvMensajeVentas" class="text-danger mb-3"></div>
+        <h3>Ventas</h3>
+        <table class="table table-bordered" id="tblVentas">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Propiedad</th>
+                    <th>Fecha</th>
+                    <th>Precio Final</th>
+                    <th>Empleado</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
 
-                            <div class="card card-gray-dark">
-                                <div class="card-header">
-                                    <h3 class="card-title">DETALLES DE LA COMPRA</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>ID</label>
-                                                <input type="text" class="form-control" id="txtidventa" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Propiedad</label>
-                                                <input type="text" class="form-control" id="txtpropiedadventa" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Fecha</label>
-                                                <input type="text" class="form-control" id="txtfechaventa" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
+        <h3>Arriendos</h3>
+        <table class="table table-bordered" id="tblArriendos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Propiedad</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Canon</th>
+                    <th>Deposito</th>
+                    <th>Empleado</th>
 
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Precio Final</label>
-                                                <input type="text" class="form-control" id="txtprecioventa" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Empleado</label>
-                                                <input type="text" class="form-control" id="txtempleadoventa" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- cierre card detalles venta -->
-
-                            <table class="table table-bordered" id="tblVentas">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Propiedad</th>
-                                        <th>Fecha</th>
-                                        <th>Precio Final</th>
-                                        <th>Empleado</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-
-                            <h3 class="seccion-titulo">Arriendos</h3>
-                            <div class="form-inline mb-3">
-                                <label for="txtid_arriendos" class="mr-2">ID ARRIENDO</label>
-                                <input type="text" class="form-control mr-2" id="txtid_arriendos" placeholder="ID Arriendo">
-                                <button type="button" class="btn btn-info" onclick="ConsultarArriendoPorId()">
-                                    <i class="fas fa-search"></i> Consultar
-                                </button>
-                            </div>
-                            <div id="dvMensajeArriendos" class="text-danger mb-3"></div>
-
-                            <div class="card card-gray-dark">
-                                <div class="card-header">
-                                    <h3 class="card-title">DETALLES DE LA VENTA</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>ID</label>
-                                                <input type="text" class="form-control" id="txtidarriendo" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Propiedad</label>
-                                                <input type="text" class="form-control" id="txtpropiedadarriendo" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Fecha Inicio</label>
-                                                <input type="text" class="form-control" id="txtfechainicioarriendo" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Fecha Fin</label>
-                                                <input type="text" class="form-control" id="txtfechafinarriendo" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Canon</label>
-                                                <input type="text" class="form-control" id="txtcanonarriendo" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Deposito</label>
-                                                <input type="text" class="form-control" id="txtdepositoarriendo" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Empleado</label>
-                                                <input type="text" class="form-control" id="txtempleadoarriendo" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- cierre card detalles arriendo -->
-
-                            <table class="table table-bordered" id="tblArriendos">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Propiedad</th>
-                                        <th>Fecha Inicio</th>
-                                        <th>Fecha Fin</th>
-                                        <th>Canon</th>
-                                        <th>Deposito</th>
-                                        <th>Empleado</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-
-                        </div> <!-- cierre card-body principal -->
-                    </div> <!-- cierre card principal -->
-                </div> <!-- cierre col-md-12 -->
-            </div> <!-- cierre row -->
-        </div> <!-- cierre container-fluid -->
-    </section> <!-- cierre section -->
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="../Scripts/bootstrap.bundle.min.js"></script>
