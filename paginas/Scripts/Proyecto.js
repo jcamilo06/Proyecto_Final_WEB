@@ -1,126 +1,93 @@
-﻿const BaseURL = "http://inmobiliaria.runasp.net/api/Proyectos/";
+﻿var BaseURL = "http://inmobiliaria2025full.runasp.net/";
 
-$(function () {
+jQuery(function () {
     $("#dvMenu").load("../Paginas/Menu.html");
     LlenarTablaProyectos();
 });
 
 function LlenarTablaProyectos() {
-    $.get(BaseURL + "ConsultarTodos", function (data) {
+    let URL = BaseURL + "api/proyectos/ConsultarTodos";
+
+    $.get(URL, function (data) {
         $("#tblProyectos").DataTable({
             data: data,
             destroy: true,
             columns: [
-                { data: "id_proyecto" },
-                { data: "nombre" },
-                { data: "id_ciudad" },
-                { data: "direccion" },
+                { data: "ID_PROYECTO" },
+                { data: "NOMBRE" },
+                { data: "CIUDAD.ID_CIUDAD" },
+                { data: "DIRECCION" },
                 {
-                    data: "fecha_lanzamiento",
+                    data: "FECHA_LANZAMIENTO",
                     render: function (d) {
                         return d ? new Date(d).toLocaleDateString() : "";
                     }
                 },
                 {
-                    data: "fecha_entrega_estimada",
+                    data: "FECHA_ENTREGA_ESTIMADA",
                     render: function (d) {
                         return d ? new Date(d).toLocaleDateString() : "";
                     }
                 },
-                { data: "desarrollador" },
-                {
-                    data: "id_proyecto",
-                    render: function (data) {
-                        return `<button class="btn btn-sm btn-danger" onclick="EliminarProyectoPorId(${data})">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>`;
-                    },
-                    orderable: false
-                }
+                { data: "DESARROLLADOR" }
             ]
         });
     });
 }
 
-async function EjecutarComandoProyecto(metodo, accion) {
-    const proyecto = {
-        id_proyecto: parseInt($("#txtid_proyecto").val()),
-        nombre: $("#txtnombre").val(),
-        id_ciudad: parseInt($("#txtid_ciudad").val()),
-        direccion: $("#txtdireccion").val(),
-        fecha_lanzamiento: $("#txtfecha_lanzamiento").val() || null,
-        fecha_entrega_estimada: $("#txtfecha_entrega_estimada").val() || null,
-        desarrollador: $("#txtdesarrollador").val()
-    };
 
-    try {
-        const res = await fetch(BaseURL + accion, {
-            method: metodo,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(proyecto)
-        });
+async function EjecutarComandoProyecto(Metodo, Funcion) {
+    let URL = BaseURL + "api/proyectos/" + Funcion;
+    const proyecto = new Proyecto(
+        parseInt($("#txtid_proyecto").val()) || 0,
+        $("#txtnombre").val(),
+        parseInt($("#txtid_ciudad").val()) || 0,
+        $("#txtdireccion").val(),
+        $("#txtfecha_lanzamiento").val(),
+        $("#txtfecha_entrega_estimada").val(),
+        $("#txtdesarrollador").val()
+    );
 
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaProyectos();
-    } catch (error) {
-        alert("Error al realizar la operación: " + error);
+    const Rpta = await EjecutarComandoServicioRptaAuth(Metodo, URL, proyecto);
+    if (typeof Rpta === 'string') {
+        $("#dvMensaje").html(Rpta);
     }
+    LlenarTablaProyectos();
 }
 
 async function ConsultarProyecto() {
-    const id = $("#txtid_proyecto").val();
-    if (!id) {
-        alert("Ingrese el ID para consultar.");
+    let id = $("#txtid_proyecto").val();
+
+    if (!id || isNaN(id)) {
+        $("#dvMensaje").html("Por favor ingresa un ID de proyecto válido.");
         return;
     }
 
-    try {
-        const res = await fetch(BaseURL + "ConsultarPorId?id=" + id);
-        if (res.ok) {
-            const proyecto = await res.json();
-            $("#txtnombre").val(proyecto.nombre);
-            $("#txtid_ciudad").val(proyecto.id_ciudad);
-            $("#txtdireccion").val(proyecto.direccion);
-            $("#txtfecha_lanzamiento").val(proyecto.fecha_lanzamiento ? proyecto.fecha_lanzamiento.split('T')[0] : "");
-            $("#txtfecha_entrega_estimada").val(proyecto.fecha_entrega_estimada ? proyecto.fecha_entrega_estimada.split('T')[0] : "");
-            $("#txtdesarrollador").val(proyecto.desarrollador);
-        } else {
-            alert("Proyecto no encontrado.");
-        }
-    } catch (error) {
-        alert("Error al consultar: " + error);
+    let URL = BaseURL + "api/proyectos/Consultar?id=" + id;
+    const proyecto = await ConsultarServicioAuth(URL);
+
+    if (proyecto && typeof proyecto === 'object' && !Array.isArray(proyecto)) {
+        $("#txtid_proyecto").val(proyecto.ID_PROYECTO);
+        $("#txtnombre").val(proyecto.NOMBRE);
+        $("#txtid_ciudad").val(proyecto.CIUDAD?.ID_CIUDAD || "");
+        $("#txtdireccion").val(proyecto.DIRECCION);
+        $("#txtfecha_lanzamiento").val(proyecto.FECHA_LANZAMIENTO?.split('T')[0] || "");
+        $("#txtfecha_entrega_estimada").val(proyecto.FECHA_ENTREGA_ESTIMADA?.split('T')[0] || "");
+        $("#txtdesarrollador").val(proyecto.DESARROLLADOR);
+    } else {
+        $("#dvMensaje").html(typeof proyecto === 'string' ? proyecto : "El proyecto no está en la base de datos");
+        $("#frmProyectos input").val("");
     }
 }
 
-async function EliminarProyectoDesdeFormulario() {
-    const id = $("#txtid_proyecto").val();
-    if (!id) {
-        alert("Ingrese el ID para eliminar.");
-        return;
-    }
-
-    if (!confirm("¿Estás seguro de eliminar este proyecto?")) return;
-
-    try {
-        const res = await fetch(BaseURL + "EliminarPorId?id=" + id, { method: "DELETE" });
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaProyectos();
-    } catch (error) {
-        alert("Error al eliminar: " + error);
-    }
-}
-
-async function EliminarProyectoPorId(id) {
-    if (!confirm("¿Estás seguro de eliminar este proyecto?")) return;
-
-    try {
-        const res = await fetch(BaseURL + "EliminarPorId?id=" + id, { method: "DELETE" });
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaProyectos();
-    } catch (error) {
-        alert("Error al eliminar: " + error);
+class Proyecto {
+    constructor(id_proyecto, nombre, id_ciudad, direccion, fecha_lanzamiento, fecha_entrega_estimada, desarrollador) {
+        this.ID_PROYECTO = id_proyecto;
+        this.NOMBRE = nombre;
+        this.ID_CIUDAD = id_ciudad;
+        this.DIRECCION = direccion;
+        this.FECHA_LANZAMIENTO = fecha_lanzamiento;
+        this.FECHA_ENTREGA_ESTIMADA = fecha_entrega_estimada;
+        this.DESARROLLADOR = desarrollador;
     }
 }

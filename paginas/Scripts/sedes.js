@@ -1,111 +1,74 @@
-﻿const BaseURL = "http://inmobiliaria.runasp.net/api/Sedes/";
+﻿var BaseURL = "http://inmobiliaria2025full.runasp.net/";
 
-$(function () {
+jQuery(function () {
     $("#dvMenu").load("../Paginas/Menu.html");
     LlenarTablaSedes();
 });
 
 function LlenarTablaSedes() {
-    $.get(BaseURL + "ConsultarTodos", function (data) {
+    let URL = BaseURL + "api/sedes/ConsultarTodos";
+
+    $.get(URL, function (data) {
         $("#tblSedes").DataTable({
             data: data,
             destroy: true,
             columns: [
-                { data: "id_sede" },
-                { data: "id_ciudad" },
-                { data: "nombre" },
-                { data: "telefono" },
-                { data: "direccion" },
-                
-                {
-                    data: "id_sede",
-                    render: function (data) {
-                        return `<button class="btn btn-sm btn-danger" onclick="EliminarSedePorId(${data})">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>`;
-                    },
-                    orderable: false
-                }
+                { data: "ID_SEDE" },
+                { data: "NOMBRE" },
+                { data: "DIRECCION" },
+                { data: "TELEFONO" },
+                { data: "ID_CIUDAD" }
             ]
         });
     });
 }
 
-async function EjecutarComandoSede(metodo, accion) {
-    const sede = {
-        id_sede: parseInt($("#txtid_sede").val()),
-        nombre: $("#txtnombre").val(),
-        id_ciudad: parseInt($("#txtid_ciudad").val()),
-        direccion: $("#txtdireccion").val(),
-        telefono: $("#txttelefono").val()
-    };
+async function EjecutarComandoSede(Metodo, Funcion) {
+    let URL = BaseURL + "api/sedes/" + Funcion;
+    const sede = new Sede(
+        parseInt($("#txtid_sede").val()) || 0,
+        $("#txtnombre").val(),
+        $("#txtdireccion").val(),
+        $("#txttelefono").val(),
+        parseInt($("#txtid_ciudad").val()) || 0
+    );
 
-    try {
-        const res = await fetch(BaseURL + accion, {
-            method: metodo,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(sede)
-        });
-
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaSedes();
-    } catch (error) {
-        alert("Error al realizar la operación: " + error);
+    const Rpta = await EjecutarComandoServicioRptaAuth(Metodo, URL, sede);
+    if (typeof Rpta === 'string') {
+        $("#dvMensaje").html(Rpta);
     }
+    LlenarTablaSedes();
 }
 
 async function ConsultarSede() {
-    const id = $("#txtid_sede").val();
-    if (!id) {
-        alert("Ingrese el ID para consultar.");
+    let id = $("#txtid_sede").val();
+
+    if (!id || isNaN(id)) {
+        $("#dvMensaje").html("Por favor ingresa un ID de sede válido.");
         return;
     }
 
-    try {
-        const res = await fetch(BaseURL + "ConsultarXId?idSede=" + id);
-        if (res.ok) {
-            const sede = await res.json();
-            $("#txtnombre").val(sede.nombre);
-            $("#txtid_ciudad").val(sede.id_ciudad);
-            $("#txtdireccion").val(sede.direccion);
-            $("#txttelefono").val(sede.telefono);
-        } else {
-            alert("Sede no encontrada.");
-        }
-    } catch (error) {
-        alert("Error al consultar: " + error);
+    let URL = BaseURL + "api/sedes/Consultar?id=" + id;
+    const sede = await ConsultarServicioAuth(URL);
+
+    if (sede && typeof sede === 'object' && !Array.isArray(sede)) {
+        $("#txtid_sede").val(sede.ID_SEDE);
+        $("#txtnombre").val(sede.NOMBRE);
+        $("#txtdireccion").val(sede.DIRECCION);
+        $("#txttelefono").val(sede.TELEFONO);
+        $("#txtid_ciudad").val(sede.ID_CIUDAD);
+    } else {
+        $("#dvMensaje").html(typeof sede === 'string' ? sede : "La sede no está en la base de datos");
+        $("#frmSedes input").val("");
     }
 }
 
-async function EliminarSedeDesdeFormulario() {
-    const id = $("#txtid_sede").val();
-    if (!id) {
-        alert("Ingrese el ID para eliminar.");
-        return;
-    }
-
-    if (!confirm("¿Estás seguro de eliminar esta sede?")) return;
-
-    try {
-        const res = await fetch(BaseURL + "EliminarXId?idSede=" + id, { method: "DELETE" });
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaSedes();
-    } catch (error) {
-        alert("Error al eliminar: " + error);
-    }
-}
-
-async function EliminarSedePorId(id) {
-    if (!confirm("¿Estás seguro de eliminar esta sede?")) return;
-
-    try {
-        const res = await fetch(BaseURL + "EliminarXId?idSede=" + id, { method: "DELETE" });
-        const mensaje = await res.text();
-        alert(mensaje);
-        LlenarTablaSedes();
-    } catch (error) {
-        alert("Error al eliminar: " + error);
+class Sede {
+    constructor(id_sede, nombre, direccion, telefono, id_ciudad) {
+        this.ID_SEDE = id_sede;
+        this.NOMBRE = nombre;
+        this.DIRECCION = direccion;
+        this.TELEFONO = telefono;
+        this.ID_CIUDAD = id_ciudad;
     }
 }
